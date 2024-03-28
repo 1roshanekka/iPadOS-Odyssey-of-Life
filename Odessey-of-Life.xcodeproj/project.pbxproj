@@ -7,14 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A7DBECB2BB5DAD900CDDB39 /* ModelDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7DBECA2BB5DAD900CDDB39 /* ModelDataManager.swift */; };
+		5A7DBECD2BB5DAFD00CDDB39 /* navStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7DBECC2BB5DAFD00CDDB39 /* navStateManager.swift */; };
+		5A7DBECF2BB5DCEF00CDDB39 /* appname.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7DBECE2BB5DCEF00CDDB39 /* appname.swift */; };
+		5A7DBED12BB5FED900CDDB39 /* settingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7DBED02BB5FED900CDDB39 /* settingsView.swift */; };
+		5A7DBED32BB5FEEB00CDDB39 /* firstMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A7DBED22BB5FEEB00CDDB39 /* firstMenuView.swift */; };
+		5A80F86F2BB5D683006D7F73 /* DateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A80F86E2BB5D683006D7F73 /* DateView.swift */; };
+		5A80F8712BB5D6EB006D7F73 /* DiaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A80F8702BB5D6EA006D7F73 /* DiaryView.swift */; };
 		5A86F9442BB1E34A006562CC /* Odessey_of_LifeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86F9432BB1E34A006562CC /* Odessey_of_LifeApp.swift */; };
 		5A86F9462BB1E34A006562CC /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86F9452BB1E34A006562CC /* ContentView.swift */; };
 		5A86F9482BB1E34A006562CC /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86F9472BB1E34A006562CC /* Item.swift */; };
 		5A86F94A2BB1E34D006562CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A86F9492BB1E34D006562CC /* Assets.xcassets */; };
 		5A86F94E2BB1E34D006562CC /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A86F94D2BB1E34D006562CC /* Preview Assets.xcassets */; };
+		5A86F9552BB1E380006562CC /* SideBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86F9542BB1E380006562CC /* SideBarView.swift */; };
+		5A86F9572BB1E3F5006562CC /* MainMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86F9562BB1E3F5006562CC /* MainMenuView.swift */; };
+		5A86F9592BB1E424006562CC /* TagColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86F9582BB1E424006562CC /* TagColorView.swift */; };
+		5A86F95B2BB1E443006562CC /* ExclusiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86F95A2BB1E443006562CC /* ExclusiveView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5A7DBECA2BB5DAD900CDDB39 /* ModelDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataManager.swift; sourceTree = "<group>"; };
+		5A7DBECC2BB5DAFD00CDDB39 /* navStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = navStateManager.swift; sourceTree = "<group>"; };
+		5A7DBECE2BB5DCEF00CDDB39 /* appname.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = appname.swift; sourceTree = "<group>"; };
+		5A7DBED02BB5FED900CDDB39 /* settingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = settingsView.swift; sourceTree = "<group>"; };
+		5A7DBED22BB5FEEB00CDDB39 /* firstMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = firstMenuView.swift; sourceTree = "<group>"; };
+		5A80F86E2BB5D683006D7F73 /* DateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateView.swift; sourceTree = "<group>"; };
+		5A80F8702BB5D6EA006D7F73 /* DiaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryView.swift; sourceTree = "<group>"; };
 		5A86F9402BB1E34A006562CC /* Odessey-of-Life.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Odessey-of-Life.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A86F9432BB1E34A006562CC /* Odessey_of_LifeApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Odessey_of_LifeApp.swift; sourceTree = "<group>"; };
 		5A86F9452BB1E34A006562CC /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -22,6 +40,10 @@
 		5A86F9492BB1E34D006562CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5A86F94B2BB1E34D006562CC /* Odessey_of_Life.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Odessey_of_Life.entitlements; sourceTree = "<group>"; };
 		5A86F94D2BB1E34D006562CC /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		5A86F9542BB1E380006562CC /* SideBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideBarView.swift; sourceTree = "<group>"; };
+		5A86F9562BB1E3F5006562CC /* MainMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainMenuView.swift; sourceTree = "<group>"; };
+		5A86F9582BB1E424006562CC /* TagColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagColorView.swift; sourceTree = "<group>"; };
+		5A86F95A2BB1E443006562CC /* ExclusiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +57,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5A7DBEC92BB5DAC800CDDB39 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				5A7DBECA2BB5DAD900CDDB39 /* ModelDataManager.swift */,
+				5A7DBECE2BB5DCEF00CDDB39 /* appname.swift */,
+				5A7DBECC2BB5DAFD00CDDB39 /* navStateManager.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		5A86F9372BB1E34A006562CC = {
 			isa = PBXGroup;
 			children = (
@@ -56,6 +88,8 @@
 			children = (
 				5A86F9432BB1E34A006562CC /* Odessey_of_LifeApp.swift */,
 				5A86F9452BB1E34A006562CC /* ContentView.swift */,
+				5A7DBEC92BB5DAC800CDDB39 /* Models */,
+				5A86F95C2BB1E463006562CC /* Views */,
 				5A86F9472BB1E34A006562CC /* Item.swift */,
 				5A86F9492BB1E34D006562CC /* Assets.xcassets */,
 				5A86F94B2BB1E34D006562CC /* Odessey_of_Life.entitlements */,
@@ -70,6 +104,21 @@
 				5A86F94D2BB1E34D006562CC /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		5A86F95C2BB1E463006562CC /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				5A86F9542BB1E380006562CC /* SideBarView.swift */,
+				5A86F9562BB1E3F5006562CC /* MainMenuView.swift */,
+				5A80F8702BB5D6EA006D7F73 /* DiaryView.swift */,
+				5A80F86E2BB5D683006D7F73 /* DateView.swift */,
+				5A7DBED02BB5FED900CDDB39 /* settingsView.swift */,
+				5A7DBED22BB5FEEB00CDDB39 /* firstMenuView.swift */,
+				5A86F9582BB1E424006562CC /* TagColorView.swift */,
+				5A86F95A2BB1E443006562CC /* ExclusiveView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -142,9 +191,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5A86F9572BB1E3F5006562CC /* MainMenuView.swift in Sources */,
+				5A7DBECD2BB5DAFD00CDDB39 /* navStateManager.swift in Sources */,
+				5A7DBECF2BB5DCEF00CDDB39 /* appname.swift in Sources */,
+				5A86F9592BB1E424006562CC /* TagColorView.swift in Sources */,
+				5A80F86F2BB5D683006D7F73 /* DateView.swift in Sources */,
 				5A86F9462BB1E34A006562CC /* ContentView.swift in Sources */,
 				5A86F9482BB1E34A006562CC /* Item.swift in Sources */,
+				5A86F9552BB1E380006562CC /* SideBarView.swift in Sources */,
+				5A86F95B2BB1E443006562CC /* ExclusiveView.swift in Sources */,
+				5A7DBED12BB5FED900CDDB39 /* settingsView.swift in Sources */,
+				5A80F8712BB5D6EB006D7F73 /* DiaryView.swift in Sources */,
 				5A86F9442BB1E34A006562CC /* Odessey_of_LifeApp.swift in Sources */,
+				5A7DBED32BB5FEEB00CDDB39 /* firstMenuView.swift in Sources */,
+				5A7DBECB2BB5DAD900CDDB39 /* ModelDataManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

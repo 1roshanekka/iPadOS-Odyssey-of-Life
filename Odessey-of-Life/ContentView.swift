@@ -9,11 +9,14 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    @StateObject var dataManager = ModelDataManager()
+    @StateObject var navigationStateManager = navStateManager()
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
     var body: some View {
         NavigationSplitView {
+            /*
             List {
                 ForEach(items) { item in
                     NavigationLink {
@@ -23,27 +26,35 @@ struct ContentView: View {
                     }
                 }
                 .onDelete(perform: deleteItems)
-            }
+                   }
+                   */
+            SideBarView()
 #if os(macOS)
             .navigationSplitViewColumnWidth(min: 180, ideal: 200)
 #endif
             .toolbar {
 #if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    EditButton()
+//                }
 #endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
+//                ToolbarItem {
+//                    Button(action: addItem) {
+//                        Label("Add Item", systemImage: "plus")
+//                    }
+//                }
             }
+            
+        } content: {
+            DateView() 
         } detail: {
-            Text("Select an item")
+            DiaryView()
         }
+        .environmentObject(dataManager)
+        .environmentObject(navigationStateManager)
     }
-
+    
+    /*
     private func addItem() {
         withAnimation {
             let newItem = Item(timestamp: Date())
@@ -58,6 +69,7 @@ struct ContentView: View {
             }
         }
     }
+     */
 }
 
 #Preview {
