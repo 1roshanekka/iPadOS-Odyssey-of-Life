@@ -9,8 +9,9 @@ import Foundation
 import Combine
 
 enum SelectionState: Hashable, Codable {
-    case firstMenu(appname)
-    case settings
+    case sidebarMenu1(menu1)
+    case sidebarMenu2(menu2)
+    case sidebarMenu3
 }
 
 class navStateManager: ObservableObject {

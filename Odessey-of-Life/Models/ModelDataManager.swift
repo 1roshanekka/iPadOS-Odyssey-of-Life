@@ -9,8 +9,8 @@ import Foundation
 
 class ModelDataManager: ObservableObject {
     
-    @Published var sidebarMenu1 = appname.examples()
-//    @Published var sidebarMenu2 = flairs
-//    @Published var sidebarMenu3 = extras
+    @Published var sidebarMenu1 = menu1.examples()
+    @Published var sidebarMenu2 = menu2.examples()
+    @Published var sidebarMenu3 = settingsView()
     
 }

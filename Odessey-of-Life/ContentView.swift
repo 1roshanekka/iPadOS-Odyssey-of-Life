@@ -11,6 +11,8 @@ import SwiftData
 struct ContentView: View {
     @StateObject var dataManager = ModelDataManager()
     @StateObject var navigationStateManager = navStateManager()
+    
+    
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
 
