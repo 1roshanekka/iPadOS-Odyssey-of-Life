@@ -64,8 +64,8 @@
 			children = (
 				5A1AD32E2BB89FEE008E4E08 /* DiaryView.swift */,
 				5A1AD32B2BB89CA5008E4E08 /* TagView.swift */,
-				5A1AD3302BB8A183008E4E08 /* OdysseyView.swift */,
 				5A7DBED02BB5FED900CDDB39 /* settingsView.swift */,
+				5A1AD3302BB8A183008E4E08 /* OdysseyView.swift */,
 			);
 			path = "Detail View";
 			sourceTree = "<group>";

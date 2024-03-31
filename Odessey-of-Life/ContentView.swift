@@ -47,9 +47,11 @@ struct ContentView: View {
 //                }
             }
             
-        } content: {
-            DateView() 
-        } detail: {
+        } 
+//        content: {
+//            DateView()
+//        } 
+        detail: {
             DiaryView()
         }
         .environmentObject(dataManager)

@@ -15,33 +15,31 @@ struct SideBarView: View {
     var body: some View {
         List(selection: $navigationManager.selectionState){
             
-            Section(header: Text("Oddesy of  Life")){
-                VStack(alignment: .leading, spacing: 8){
+            Section(header: Text("Odyssey of Life")){
+//                VStack(alignment: .leading, spacing: 8){
                     ForEach(dataManager.sidebarMenu1) { options in
-                        Button(options.menuName){
-                            navigationManager.selectionState = SelectionState.sidebarMenu1(options)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-//                        HStack{
-//                            Image(systemName: options.iconName)
-//                            Text(options.menuName)
+//                        Button(options.menuName){
+//                            navigationManager.selectionState = SelectionState.sidebarMenu1(options)
 //                        }
+//                        .buttonStyle(PlainButtonStyle())
+                        
+//                        NavigationLink(value: SelectionState.sidebarMenu1(options)){
+//                            HStack{
+//                                Image(systemName: options.iconName)
+//                                Text(options.menuName)
+//                            }
+//                        }
+                        NavigationLink(options.menuName, value: SelectionState.sidebarMenu1(options))
+//
                     }
-                }
+//                }
             }
+            
             Section(header: Text("Tags")){
-                VStack(alignment: .leading, spacing: 8){
-                    ForEach(dataManager.sidebarMenu2) { options in
-                        Button(options.tagName){
-                            navigationManager.selectionState = SelectionState.sidebarMenu2(options)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-//                        HStack{
-//                            Image(systemName: options.iconName)
-//                            Text(options.menuName)
-//                        }
-                    }
+                ForEach(dataManager.sidebarMenu2) { options in
+                    NavigationLink(options.tagName, value: SelectionState.sidebarMenu2(options))
                 }
+                
             }
             
             Divider()
@@ -68,3 +66,4 @@ struct SideBarView: View {
 #Preview {
     SideBarView().environmentObject(ModelDataManager()).environmentObject(navStateManager())
 }
+

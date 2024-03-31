@@ -14,11 +14,24 @@ struct OdysseyView: View {
     
     let passedVar : menu1
     var body: some View {
-        Text("hello view")
-
+        VStack {
+            Text("hello view")
+            Text("this is odyssey of life")
+        }
+        .navigationTitle("Odyssey of Life")
+        .toolbar {
+            ToolbarItem(placement: .primaryAction) {
+                Button {
+                    //add to best memories
+                } label: {
+                    Image(systemName: "heart")
+                }
+            }
+        }
     }
 }
 
+//
 //#Preview {
 //    OdysseyView()
 //}

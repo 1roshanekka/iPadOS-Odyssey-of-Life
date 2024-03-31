@@ -33,7 +33,7 @@ struct InputForm: View {
                 }
                 .padding()
             }
-            .navigationTitle("Journal")
+            .navigationTitle("")
         }
     }
 }
