@@ -16,23 +16,21 @@ struct SideBarView: View {
         List(selection: $navigationManager.selectionState){
             
             Section(header: Text("Odyssey of Life")){
-//                VStack(alignment: .leading, spacing: 8){
                     ForEach(dataManager.sidebarMenu1) { options in
-//                        Button(options.menuName){
-//                            navigationManager.selectionState = SelectionState.sidebarMenu1(options)
-//                        }
-//                        .buttonStyle(PlainButtonStyle())
-                        
-//                        NavigationLink(value: SelectionState.sidebarMenu1(options)){
-//                            HStack{
-//                                Image(systemName: options.iconName)
-//                                Text(options.menuName)
+//                        NavigationLink(options.menuName, value: SelectionState.sidebarMenu1(options))
+//                            .onAppear()
+//                            {
+//                                print(options)
 //                            }
-//                        }
-                        NavigationLink(options.menuName, value: SelectionState.sidebarMenu1(options))
-//
+                        NavigationLink(value: SelectionState.sidebarMenu1(options)) {
+                            HStack {
+                                Image(systemName: options.iconName)
+                                    .foregroundColor(Color(options.style))
+                                Text(options.menuName)
+                            }
+                        }
                     }
-//                }
+                    
             }
             
             Section(header: Text("Tags")){
@@ -42,10 +40,18 @@ struct SideBarView: View {
                 
             }
             
-            Divider()
-            
-            Text("Settings")
+            #if os(macOS)
+                
+            #else
+                Divider()
+                
+                HStack{
+                    Image(systemName: "gear")
+                        .foregroundColor(.blue)
+                    Text("Settings")
+                }
                 .tag(SelectionState.sidebarMenu3)
+            #endif
         }
         .listStyle(.sidebar)
         .navigationTitle("")

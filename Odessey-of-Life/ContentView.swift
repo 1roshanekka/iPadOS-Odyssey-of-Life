@@ -15,6 +15,9 @@ struct ContentView: View {
     
     @Environment(\.modelContext) private var modelContext
     @Query private var items: [Item]
+    
+    @State private var searchItem : String = ""
+    
 
     var body: some View {
         NavigationSplitView {
@@ -54,6 +57,7 @@ struct ContentView: View {
         detail: {
             DiaryView()
         }
+        .searchable(text: $searchItem, placement: .sidebar, prompt: "Moments")
         .environmentObject(dataManager)
         .environmentObject(navigationStateManager)
     }

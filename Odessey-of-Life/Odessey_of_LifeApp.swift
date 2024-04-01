@@ -10,6 +10,7 @@ import SwiftData
 
 @main
 struct Odessey_of_LifeApp: App {
+
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
             Item.self,
@@ -26,6 +27,7 @@ struct Odessey_of_LifeApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
+    
         }
         .modelContainer(sharedModelContainer)
     }

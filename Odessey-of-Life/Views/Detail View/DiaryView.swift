@@ -5,6 +5,8 @@
 //  Created by Roshan Ekka on 31/03/24.
 //
 
+/* the most common view after sidebar is selected */
+
 import SwiftUI
 
 struct DiaryView: View {
@@ -13,11 +15,12 @@ struct DiaryView: View {
     @EnvironmentObject var navigationManager: navStateManager
     
     var body: some View {
+        /* sends the view of particular seleted group menu1, menu2, menu3 */
         
         if let state = navigationManager.selectionState {
             switch state {
             case .sidebarMenu1(let menu1):
-                OdysseyView(passedVar: menu1)
+                OdysseyView(passedVar: menu1) // i.e. all options
             case .sidebarMenu2(let menu2):
                 TagView(passedVar: menu2)
             case .sidebarMenu3:
