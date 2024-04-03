@@ -20,5 +20,5 @@ struct TagView: View {
 }
 
 #Preview {
-    TagView(passedVar: menu2.examples()[0])
+    TagView(passedVar: menu2Items[0])
 }

@@ -7,29 +7,22 @@
 
 import Foundation
 
-
 struct menu2: Identifiable, Hashable, Codable {
     var id = UUID()
+    var menuNo: Int
     var tagName: String
     var iconName: String
     
-    init(id: UUID = UUID(), tagName: String, iconName: String) {
+    init(id: UUID = UUID(), menuNo: Int, tagName: String, iconName: String) {
         self.id = id
+        self.menuNo = menuNo
         self.tagName = tagName
         self.iconName = iconName
     }
-    
-    static func examples() -> [menu2] {
-        [menu2(tagName: "Red", iconName: "red.fill"),
-         menu2(tagName: "Blue", iconName: "swirl.circle.righthalf.filled.inverse"),
-         menu2(tagName: "Green", iconName: "heart.fill")]
-    }
-    
-    
 }
 
 let menu2Items: [menu2] = [
-    menu2(tagName: "Pizza Margherita", iconName: "heart.fill"),
-    menu2(tagName: "Spaghetti Bolognese", iconName: "heart.fill"),
-    menu2(tagName: "Lasagna", iconName: "heart.fill")
+    menu2(menuNo: 1, tagName: "Red", iconName: "circle.fill"),
+    menu2(menuNo: 2, tagName: "Blue", iconName: "circle.fill"),
+    menu2(menuNo: 3, tagName: "Green", iconName: "circle.fill")
 ]

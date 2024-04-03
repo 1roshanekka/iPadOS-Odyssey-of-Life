@@ -11,59 +11,81 @@ struct SideBarView: View {
     
     @EnvironmentObject var dataManager : ModelDataManager
     @EnvironmentObject var navigationManager : navStateManager
-        
+    
+    
     var body: some View {
-        List(selection: $navigationManager.selectionState){
-            
-            Section(header: Text("Odyssey of Life")){
+        let menuColorMap: [Int: Color] = [
+          1: .red,
+          2: .blue,
+          3: .green,
+          // Add more mappings for other menu items
+        ]
+        
+        NavigationStack{
+            List(selection: $navigationManager.selectionState){
+                
+                Section(header: Text("Odyssey of Life")){
                     ForEach(dataManager.sidebarMenu1) { options in
-//                        NavigationLink(options.menuName, value: SelectionState.sidebarMenu1(options))
-//                            .onAppear()
-//                            {
-//                                print(options)
-//                            }
+                        //                        NavigationLink(options.menuName, value: SelectionState.sidebarMenu1(options))
+                        //                            .onAppear()
+                        //                            {
+                        //                                print(options)
+                        //                            }
                         NavigationLink(value: SelectionState.sidebarMenu1(options)) {
                             HStack {
+                                
                                 Image(systemName: options.iconName)
-                                    .foregroundColor(Color(options.style))
+                                    .foregroundStyle(menuColorMap[options.menuNo] ?? .black) // Use black as default
                                 Text(options.menuName)
                             }
                         }
                     }
                     
-            }
-            
-            Section(header: Text("Tags")){
-                ForEach(dataManager.sidebarMenu2) { options in
-                    NavigationLink(options.tagName, value: SelectionState.sidebarMenu2(options))
+                }
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    Spacer()
+                }
+                else{
+                    Section(header: Text("Tags")){
+                        ForEach(dataManager.sidebarMenu2) { options in
+                            NavigationLink(value: SelectionState.sidebarMenu2(options)) {
+                                HStack {
+                                    Image(systemName: options.iconName)
+                                        .foregroundStyle(menuColorMap[options.menuNo] ?? .black) // Use black as default
+                                    Text(options.tagName)
+                                }
+                            }
+                        }
+                        
+                    }
                 }
                 
-            }
-            
-            #if os(macOS)
-                
-            #else
-                HStack{
-                    Image(systemName: "gear")
-                        .foregroundColor(.blue)
-                    Text("Settings")
+                if UIDevice.current.userInterfaceIdiom == .pad {
+                    Spacer()
                 }
-                .tag(SelectionState.sidebarMenu3)
-            #endif
+                else{
+                    HStack{
+                        Image(systemName: "gear")
+                            .foregroundColor(.blue)
+                        Text("Settings")
+                    }
+                    .tag(SelectionState.sidebarMenu3)
+                }
+            }
+            .listStyle(.sidebar)
+            .navigationTitle("Life")
+            //        List{
+            //            Section(header: Text("Oddesy of  Life")){
+            //                MainMenuView()
+            //            }
+            //            Section(header: Text("Tags")){
+            //                TagColorView()
+            //            }
+            //            Section(header: Text("Extras")){
+            //                ExclusiveView()
+            //            }
+            //        }
         }
-        .listStyle(.sidebar)
-        .navigationTitle("")
-//        List{
-//            Section(header: Text("Oddesy of  Life")){
-//                MainMenuView()
-//            }
-//            Section(header: Text("Tags")){
-//                TagColorView()
-//            }
-//            Section(header: Text("Extras")){
-//                ExclusiveView()
-//            }
-//        }
     }
 }
 

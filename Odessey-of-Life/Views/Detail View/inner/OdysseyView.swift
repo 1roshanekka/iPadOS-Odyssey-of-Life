@@ -18,7 +18,7 @@ struct OdysseyView: View {
     let passedVar : menu1
     
     var body: some View {
-        VStack {
+        NavigationStack {
             switch passedVar.menuNo {
                 case 1:
                     TodayView()

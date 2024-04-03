@@ -60,6 +60,7 @@ struct ContentView: View {
         .searchable(text: $searchItem, placement: .sidebar, prompt: "Moments")
         .environmentObject(dataManager)
         .environmentObject(navigationStateManager)
+        .navigationTitle("Ode to your Life")
     }
     
     /*

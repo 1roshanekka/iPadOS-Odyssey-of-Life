@@ -35,27 +35,38 @@ struct LoginView: View {
         ZStack{
             VStack{
 
+#if os(iOS)
                 TextField("Email", text: $loginEmail)
                     .font(.subheadline)
                     .padding(12)
-#if os(iOS)
-                    .background(Color(uiColor: .systemGray6))
-#else
-#endif
                     .cornerRadius(10)
                     .padding(.horizontal, 24)
-                
+                    .background(Color(uiColor: .systemGray6))
+                    .padding(.horizontal, 24)
                 SecureField ("Password", text: $pass)
                     .font(.subheadline)
                     .padding(12)
-#if os(iOS)
                     .background(Color(uiColor: .systemGray6))
+                    .cornerRadius(10)
+                    .padding(.horizontal, 24)
 #else
+                TextField("Email", text: $loginEmail)
+                    .font(.subheadline)
+                    .padding(12)
+                    .cornerRadius(10)
+                    .padding(.horizontal, 24)
+                SecureField ("Password", text: $pass)
+                    .font(.subheadline)
+                    .padding(12)
+                    .cornerRadius(10)
+                    .padding(.horizontal, 24)
+                    
+
+                
 #endif
 //                    .background(Color.systemGray6)
 //                    .background(Color(uiColor: .systemGray6))
-                    .cornerRadius(10)
-                    .padding(.horizontal, 24)
+                    
                 
                 
                 

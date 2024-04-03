@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 
 struct menu1: Identifiable, Hashable, Codable {
@@ -13,22 +14,21 @@ struct menu1: Identifiable, Hashable, Codable {
     var menuNo: Int
     var menuName: String
     var iconName: String
-    var style: String
     
-    init(id: UUID = UUID(), menuNo: Int, menuName: String, iconName: String, style: String) {
+    
+    init(id: UUID = UUID(), menuNo: Int, menuName: String, iconName: String) {
         self.id = id
         self.menuNo = menuNo
         self.menuName = menuName
         self.iconName = iconName
-        self.style = style
+//        self.style = style
     }
     
 }
 
 
-
 let menu1Items: [menu1] = [
-    menu1(menuNo: 1, menuName: "Your Life Today", iconName: "heart.fill", style: ".red"),
-    menu1(menuNo: 2, menuName: "Aspects", iconName: "swirl.circle.righthalf.filled.inverse", style: ".blue"),
-    menu1(menuNo: 3, menuName: "Memories", iconName: "brain.filled.head.profile", style: ".blue")
+    menu1(menuNo: 1, menuName: "Your Life Today", iconName: "heart.fill"),
+    menu1(menuNo: 2, menuName: "Aspects", iconName: "swirl.circle.righthalf.filled.inverse"),
+    menu1(menuNo: 3, menuName: "Memories", iconName: "brain.filled.head.profile")
 ]

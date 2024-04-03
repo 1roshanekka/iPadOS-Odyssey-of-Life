@@ -9,7 +9,12 @@ import SwiftUI
 
 struct MemoriesView: View {
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        NavigationStack{
+            
+            //grids of 
+            
+        }
+        .navigationTitle("Memories")
     }
 }
 
