@@ -24,97 +24,82 @@ struct TodayView: View {
     }
     
     var formBody: some View {
+        
         VStack{
-            Form {
-                ScrollView {
-                    TextField(text: $journalEntry, prompt: Text("How was your day?.."))
+            Form{
+                Section{
+                    TextField("How is you day going?..", text: $journalEntry)
+                        .padding(.bottom, 400)
+                }
+                
+#if os(iOS)
+                Section{
+                    HStack(alignment: .center)
                     {
+                        Button(action: {
+                            // Action for adding photo
+                            self.isShowingPhotoPicker.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "photo")
+                            }
+                        }
+                        Button(action: {
+                            // Action for recording audio
+                            self.isRecordingAudio.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "mic")
+                            }
+                        }
+                        Button(action: {
+                            // Action for adding location
+                            self.isShowingLocationPicker.toggle()
+                        }) {
+                            HStack {
+                                Image(systemName: "location")
+                            }
+                        }
                     }
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .font(.title3)
+                    .padding()
                 }
-                .frame(minHeight: 200, maxHeight: .infinity)
+#else
+                HStack{
+                    Button(action: {
+                        // Action for adding photo
+                        self.isShowingPhotoPicker.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: "photo")
+                            Text("Add Photo")
+                        }
+                    }
+                    Button(action: {
+                        // Action for recording audio
+                        self.isRecordingAudio.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: "mic")
+                            Text("Add Audio Recording")
+                        }
+                    }
+                    Button(action: {
+                        // Action for adding location
+                        self.isShowingLocationPicker.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: "location")
+                            Text("Add Location")
+                        }
+                    }
+                }
+#endif
             }
-            #if os(iOS)
-                Button(action: {
-                    // Action for adding photo
-                    self.isShowingPhotoPicker.toggle()
-                }) {
-                    HStack {
-                        Image(systemName: "photo")
-                    }
-                }
-            #else
-                Button(action: {
-                    // Action for adding photo
-                    self.isShowingPhotoPicker.toggle()
-                }) {
-                    HStack {
-                        Image(systemName: "photo")
-                        Text("Add Photo")
-                    }
-                }
-            #endif
         }
     }
 }
             
-//                #if os(iOS)
-//                    
-//                    Button(action: {
-//                        // Action for adding photo
-//                        self.isShowingPhotoPicker.toggle()
-//                    }) {
-//                        HStack {
-//                            Image(systemName: "photo")
-//                        }
-//                    }
-//                    Button(action: {
-//                        // Action for recording audio
-//                        self.isRecordingAudio.toggle()
-//                    }) {
-//                        HStack {
-//                            Image(systemName: "mic")
-//                        }
-//                    }
-//                    Button(action: {
-//                        // Action for adding location
-//                        self.isShowingLocationPicker.toggle()
-//                    }) {
-//                        HStack {
-//                            Image(systemName: "location")
-//                        }
-//                    }
-//                #else
-//                    Section(header: Text("Add to Your Entry")) {
-//                        Button(action: {
-//                            // Action for adding photo
-//                            self.isShowingPhotoPicker.toggle()
-//                        }) {
-//                            HStack {
-//                                Image(systemName: "photo")
-//                                Text("Add Photo")
-//                            }
-//                        }
-//                        Button(action: {
-//                            // Action for recording audio
-//                            self.isRecordingAudio.toggle()
-//                        }) {
-//                            HStack {
-//                                Image(systemName: "mic")
-//                                Text("Record Audio")
-//                            }
-//                        }
-//                        Button(action: {
-//                            // Action for adding location
-//                            self.isShowingLocationPicker.toggle()
-//                        }) {
-//                            HStack {
-//                                Image(systemName: "location")
-//                                Text("Add Location")
-//                            }
-//                        }
-//                    }
-//                #endif
   
 //        #if os(iOS)
 //        .navigationBarTitle("New Journal Entry")

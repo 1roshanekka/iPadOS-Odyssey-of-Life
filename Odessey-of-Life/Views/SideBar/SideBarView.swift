@@ -43,8 +43,6 @@ struct SideBarView: View {
             #if os(macOS)
                 
             #else
-                Divider()
-                
                 HStack{
                     Image(systemName: "gear")
                         .foregroundColor(.blue)

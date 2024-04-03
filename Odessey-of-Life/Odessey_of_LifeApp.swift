@@ -30,5 +30,14 @@ struct Odessey_of_LifeApp: App {
     
         }
         .modelContainer(sharedModelContainer)
+        
+        #if os(macOS)
+            Settings {
+                Text("Setting")
+                  .padding(.all, 200)
+            }
+        #else
+        
+        #endif
     }
 }

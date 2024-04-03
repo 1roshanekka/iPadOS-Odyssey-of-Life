@@ -26,6 +26,8 @@
 		5A86F95B2BB1E443006562CC /* ExclusiveView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A86F95A2BB1E443006562CC /* ExclusiveView.swift */; };
 		5A9127372BBAFC1800C83B37 /* MemoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9127362BBAFC1800C83B37 /* MemoriesView.swift */; };
 		5A91273A2BBAFCB300C83B37 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9127392BBAFCB300C83B37 /* TodayView.swift */; };
+		5AA090B62BBBD51900DA7706 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA090B52BBBD51900DA7706 /* LoginView.swift */; };
+		5AE215852BBC80B800B99CB1 /* entryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE215842BBC80B800B99CB1 /* entryView.swift */; };
 		5AF337EC2BBACCB300381A96 /* AspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF337EB2BBACCB300381A96 /* AspectsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		5A86F95A2BB1E443006562CC /* ExclusiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExclusiveView.swift; sourceTree = "<group>"; };
 		5A9127362BBAFC1800C83B37 /* MemoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesView.swift; sourceTree = "<group>"; };
 		5A9127392BBAFCB300C83B37 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
+		5AA090B52BBBD51900DA7706 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		5AE215842BBC80B800B99CB1 /* entryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entryView.swift; sourceTree = "<group>"; };
 		5AF337EB2BBACCB300381A96 /* AspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -140,6 +144,7 @@
 				5A86F9562BB1E3F5006562CC /* MainMenuView.swift */,
 				5A80F86E2BB5D683006D7F73 /* DateView.swift */,
 				5A86F95A2BB1E443006562CC /* ExclusiveView.swift */,
+				5AA090B52BBBD51900DA7706 /* LoginView.swift */,
 				5A91273B2BBAFCB800C83B37 /* cluster1 */,
 			);
 			path = Views;
@@ -159,6 +164,7 @@
 			isa = PBXGroup;
 			children = (
 				5A9127392BBAFCB300C83B37 /* TodayView.swift */,
+				5AE215842BBC80B800B99CB1 /* entryView.swift */,
 				5AF337EB2BBACCB300381A96 /* AspectsView.swift */,
 				5A9127362BBAFC1800C83B37 /* MemoriesView.swift */,
 			);
@@ -246,11 +252,13 @@
 				5A86F9482BB1E34A006562CC /* Item.swift in Sources */,
 				5A86F9552BB1E380006562CC /* SideBarView.swift in Sources */,
 				5A1AD3282BB89A50008E4E08 /* menu1.swift in Sources */,
+				5AE215852BBC80B800B99CB1 /* entryView.swift in Sources */,
 				5A86F95B2BB1E443006562CC /* ExclusiveView.swift in Sources */,
 				5AF337EC2BBACCB300381A96 /* AspectsView.swift in Sources */,
 				5A7DBED12BB5FED900CDDB39 /* settingsView.swift in Sources */,
 				5A1AD3312BB8A183008E4E08 /* OdysseyView.swift in Sources */,
 				5A86F9442BB1E34A006562CC /* Odessey_of_LifeApp.swift in Sources */,
+				5AA090B62BBBD51900DA7706 /* LoginView.swift in Sources */,
 				5A1AD32A2BB89B18008E4E08 /* menu2.swift in Sources */,
 				5A7DBECB2BB5DAD900CDDB39 /* ModelDataManager.swift in Sources */,
 			);
