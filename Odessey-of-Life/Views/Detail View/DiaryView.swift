@@ -24,7 +24,9 @@ struct DiaryView: View {
             case .sidebarMenu2(let menu2):
                 TagView(passedVar: menu2)
             case .sidebarMenu3:
-                settingsView()
+//                settingsView()
+                DataBaseView()
+                
             }
         }
         else{

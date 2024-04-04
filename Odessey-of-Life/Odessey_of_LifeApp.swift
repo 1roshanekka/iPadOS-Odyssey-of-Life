@@ -29,13 +29,14 @@ struct Odessey_of_LifeApp: App {
             ContentView()
     
         }
-        .modelContainer(sharedModelContainer)
+//        .modelContainer(sharedModelContainer)
+        .modelContainer(for: journalDataModel.self)
         
         #if os(macOS)
             Settings {
-                Text("Setting")
-                  .padding(.all, 200)
+                settingsView()
             }
+            
         #else
         
         #endif

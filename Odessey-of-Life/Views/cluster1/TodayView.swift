@@ -9,6 +9,8 @@ import SwiftUI
 
 struct TodayView: View {
     
+    @Environment(\.presentationMode) var presentationMode
+    
     let currentDate = Date()
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
@@ -22,12 +24,17 @@ struct TodayView: View {
     @State private var isRecordingAudio: Bool = false
     @State private var isShowingLocationPicker: Bool = false
     
+    @State private var selectedTab = 0
+    
     var body: some View {
 #if os(iOS)
         return NavigationStack {
             formBody
         }
         .navigationTitle("Journal")
+        .onTapGesture {
+//            hideKeyboard()
+        }
 #else
         return formBody
 #endif
@@ -63,7 +70,7 @@ struct TodayView: View {
                             }
                             .sheet(isPresented: $isShowingPhotoPicker) {
                                 // Photo picker view goes here
-                                // PhotoPickerView()
+                                 PhotoPickerView()
                             }
                             
                             Spacer()
@@ -91,7 +98,7 @@ struct TodayView: View {
                                     Image(systemName: "location")
                                 }
                             }
-                            .sheet(isPresented: $isShowingLocationPicker) {
+                            .popover(isPresented: $isShowingLocationPicker) {
                                 // Photo picker view goes here
                                 // PhotoPickerView()
                             }
@@ -135,14 +142,31 @@ struct TodayView: View {
                         }
                     }
 #endif
+                Spacer()
                 
+//                TabView(selection: $selectedTab){
+//                    DateView()
+//                        .tag(0)
+//                        .tabItem {
+//                            Label("Date", systemImage: "calendar")
+//                            Text("Tab 1", comment: "Tab bar title")
+//                        }
+//                    
+//                    ExclusiveView()
+//                        .tag(1)
+//                        .tabItem {
+//                            Label("Motivation", systemImage: "sparkles")
+//                            Text("Tab 1", comment: "Tab bar title")
+//                        }
+//                    
+//                }
                 
             }
         .toolbar{
-            ToolbarItem(placement: .primaryAction) {
-    
+            ToolbarItemGroup(placement: .primaryAction) {
                 Button("Done") {
                     // commit changes
+                    doneSave()
                 }
                 .bold()
                 .foregroundStyle(Color.blue)
@@ -156,6 +180,12 @@ struct TodayView: View {
             //        }
             //
         }
+    }
+    
+    func doneSave(){
+        print("Saving in progress...")
+        
+        presentationMode.wrappedValue.dismiss()
     }
 }
             

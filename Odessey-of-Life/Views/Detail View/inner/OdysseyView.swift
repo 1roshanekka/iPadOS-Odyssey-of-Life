@@ -13,6 +13,8 @@ struct OdysseyView: View {
     @EnvironmentObject var navigationManager: navStateManager
     @EnvironmentObject var dataManager : ModelDataManager
     
+    @State private var selectedTab = 0
+    
 //    @State var textInput: String? = nil
     
     let passedVar : menu1
@@ -29,6 +31,29 @@ struct OdysseyView: View {
                 default:
                     EmptyView()
                 }
+            
+//            Text("hellll")
+            
+            #if os(iOS)
+            TabView(selection: $selectedTab){
+                DateView()
+                    .tag(0)
+                    .tabItem {
+                        Label("Date", systemImage: "calendar")
+                        Text("Tab 1", comment: "Tab bar title")
+                    }
+                
+                ExclusiveView()
+                    .tag(1)
+                    .tabItem {
+                        Label("Motivation", systemImage: "sparkles")
+                        Text("Tab 1", comment: "Tab bar title")
+                    }
+                
+            }
+            #else
+            
+            #endif
         }
         
         

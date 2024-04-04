@@ -19,7 +19,6 @@ struct DateView: View {
 
 struct InputForm: View {
     
-    @State private var text_entry : String = ""
     @State private var date_entry : Date = .now
     
     var body: some View {
@@ -28,10 +27,10 @@ struct InputForm: View {
 //                TextField("Start typing your day today...", text: $text_entry)
                 DatePicker("", selection: $date_entry, displayedComponents: .date)
                     .datePickerStyle(.graphical)
-                TextField(text: $text_entry, prompt: Text("Start typing about your day today...")) {
-                    //                        Text("Username")
-                }
-                .padding()
+//                TextField(text: $text_entry, prompt: Text("Start typing about your day today...")) {
+//                    //                        Text("Username")
+//                }
+                
             }
             .navigationTitle("")
         }

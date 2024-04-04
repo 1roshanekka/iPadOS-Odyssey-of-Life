@@ -42,8 +42,35 @@ struct SideBarView: View {
                     }
                     
                 }
+                
+                #if os(macOS)
+                    Section(header: Text("Tags")){
+                        ForEach(dataManager.sidebarMenu2) { options in
+                            NavigationLink(value: SelectionState.sidebarMenu2(options)) {
+                                HStack {
+                                    Image(systemName: options.iconName)
+                                        .foregroundStyle(menuColorMap[options.menuNo] ?? .black) // Use black as default
+                                    Text(options.tagName)
+                                }
+                            }
+                        }
+                        
+                    }
+                #else
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     Spacer()
+                    Section(header: Text("Tags")){
+                        ForEach(dataManager.sidebarMenu2) { options in
+                            NavigationLink(value: SelectionState.sidebarMenu2(options)) {
+                                HStack {
+                                    Image(systemName: options.iconName)
+                                        .foregroundStyle(menuColorMap[options.menuNo] ?? .black) // Use black as default
+                                    Text(options.tagName)
+                                }
+                            }
+                        }
+                        
+                    }
                 }
                 else{
                     Section(header: Text("Tags")){
@@ -62,6 +89,12 @@ struct SideBarView: View {
                 
                 if UIDevice.current.userInterfaceIdiom == .pad {
                     Spacer()
+                    HStack{
+                        Image(systemName: "gear")
+                            .foregroundColor(.blue)
+                        Text("Settings")
+                    }
+                    .tag(SelectionState.sidebarMenu3)
                 }
                 else{
                     HStack{
@@ -71,6 +104,9 @@ struct SideBarView: View {
                     }
                     .tag(SelectionState.sidebarMenu3)
                 }
+                
+                #endif
+                
             }
             .listStyle(.sidebar)
             .navigationTitle("Life")
