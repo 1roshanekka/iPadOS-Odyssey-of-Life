@@ -9,8 +9,12 @@ import SwiftUI
 import SwiftData
 
 struct ContentView: View {
+    
+    @State private var showThirdColumn = false
+    
     @StateObject var dataManager = ModelDataManager()
     @StateObject var navigationStateManager = navStateManager()
+    
     
     
     @Environment(\.modelContext) private var modelContext
@@ -18,42 +22,39 @@ struct ContentView: View {
     
     @State private var searchItem : String = ""
     
-
+    
     var body: some View {
         NavigationSplitView {
             /*
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
-                    }
-                }
-                .onDelete(perform: deleteItems)
-                   }
-                   */
+             List {
+             ForEach(items) { item in
+             NavigationLink {
+             Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
+             } label: {
+             Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+             }
+             }
+             .onDelete(perform: deleteItems)
+             }
+             
+             .toolbar {
+             #if os(iOS)
+             //                ToolbarItem(placement: .navigationBarTrailing) {
+             //                    EditButton()
+             //                }
+             #endif
+             //                ToolbarItem {
+             //                    Button(action: addItem) {
+             //                        Label("Add Item", systemImage: "plus")
+             //                    }
+             //                }
+             }
+             */
             SideBarView()
 #if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
+                .navigationSplitViewColumnWidth(min: 180, ideal: 200)
 #endif
-            .toolbar {
-#if os(iOS)
-//                ToolbarItem(placement: .navigationBarTrailing) {
-//                    EditButton()
-//                }
-#endif
-//                ToolbarItem {
-//                    Button(action: addItem) {
-//                        Label("Add Item", systemImage: "plus")
-//                    }
-//                }
-            }
-            
-        } 
-//        content: {
-//            DateView()
-//        } 
+        }
         detail: {
             DiaryView()
         }
@@ -62,6 +63,8 @@ struct ContentView: View {
         .environmentObject(navigationStateManager)
         .navigationTitle("Ode to your Life")
     }
+}
+
     
     /*
     private func addItem() {
@@ -79,7 +82,6 @@ struct ContentView: View {
         }
     }
      */
-}
 
 #Preview {
     ContentView()

@@ -10,6 +10,8 @@ import SwiftUI
 struct TodayView: View {
     
     @Environment(\.presentationMode) var presentationMode
+    @EnvironmentObject var navigationManager: navStateManager
+    
     
     let currentDate = Date()
     let dateFormatter: DateFormatter = {
@@ -18,150 +20,146 @@ struct TodayView: View {
         return formatter
     }()
     
+    //    @State var selectedTab = 0
+    @Binding var selectedTab: Int
+    
     
     @State private var journalEntry: String = ""
     @State private var isShowingPhotoPicker: Bool = false
     @State private var isRecordingAudio: Bool = false
     @State private var isShowingLocationPicker: Bool = false
     
-    @State private var selectedTab = 0
+    
     
     var body: some View {
+        VStack{
+            Form{
+                Section{
+                    TextField("How is you day going?..", text: $journalEntry)
+                        .padding(.bottom, 300)
+                    
+                    VStack(alignment: .center){
+                        Text(currentDate, formatter: dateFormatter)
+                    }
+                    
+                }
+                //            }
+                
+                
 #if os(iOS)
-        return NavigationStack {
-            formBody
-        }
-        .navigationTitle("Journal")
-        .onTapGesture {
-//            hideKeyboard()
-        }
-#else
-        return formBody
-#endif
-    }
-    
-    var formBody: some View {
-            VStack{
-                Form{
-                    Section{
-                        TextField("How is you day going?..", text: $journalEntry)
-                            .padding(.bottom, 400)
-                        
-                        VStack(alignment: .center){
-                            Text(currentDate, formatter: dateFormatter)
+                Group{
+                    HStack(alignment: .center)
+                    {
+                        Spacer()
+                        Button(action: {
+                            // Action for adding photo
+                            self.isShowingPhotoPicker = true
+                        }) {
+                            HStack {
+                                Image(systemName: "photo")
+                            }
+                        }
+                        .sheet(isPresented: $isShowingPhotoPicker) {
+                            // Photo picker view goes here
+//                            PhotoPickerView()
                         }
                         
+                        Spacer()
+                        Button(action: {
+                            // Action for recording audio
+                            //                                self.isRecordingAudio.toggle()
+                            self.isRecordingAudio = true
+                        }) {
+                            HStack {
+                                Image(systemName: "mic")
+                            }
+                        }
+                        .sheet(isPresented: $isRecordingAudio) {
+                            // Photo picker view goes here
+                            // PhotoPickerView()
+                        }
+                        
+                        Spacer()
+                        Button(action: {
+                            // Action for adding location
+                            //                                self.isShowingLocationPicker.toggle()
+                            self.isShowingLocationPicker = true
+                        }) {
+                            HStack {
+                                Image(systemName: "location")
+                            }
+                        }
+                        .sheet(isPresented: $isShowingLocationPicker) {
+                            // Photo picker view goes here
+                            // PhotoPickerView()
+                        }
+                        
+                        Spacer()
+                    }
+                    .font(.title3)
+                    .padding()
+                }
+            
+            
+#else
+            Group{
+                HStack{
+                    Button(action: {
+                        // Action for adding photo
+                        self.isShowingPhotoPicker.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: "photo")
+                            Text("Add Photo")
+                        }
+                    }
+                    Button(action: {
+                        // Action for recording audio
+                        self.isRecordingAudio.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: "mic")
+                            Text("Add Audio Recording")
+                        }
+                    }
+                    Button(action: {
+                        // Action for adding location
+                        self.isShowingLocationPicker.toggle()
+                    }) {
+                        HStack {
+                            Image(systemName: "location")
+                            Text("Add Location")
+                        }
                     }
                 }
-                    
-                    
-#if os(iOS)
-                    Group{
-                        HStack(alignment: .center)
-                        {
-                            Spacer()
-                            Button(action: {
-                                // Action for adding photo
-                                self.isShowingPhotoPicker = true
-                            }) {
-                                HStack {
-                                    Image(systemName: "photo")
-                                }
-                            }
-                            .sheet(isPresented: $isShowingPhotoPicker) {
-                                // Photo picker view goes here
-                                 PhotoPickerView()
-                            }
-                            
-                            Spacer()
-                            Button(action: {
-                                // Action for recording audio
-//                                self.isRecordingAudio.toggle()
-                                self.isRecordingAudio = true
-                            }) {
-                                HStack {
-                                    Image(systemName: "mic")
-                                }
-                            }
-                            .sheet(isPresented: $isRecordingAudio) {
-                                // Photo picker view goes here
-                                // PhotoPickerView()
-                            }
-                            
-                            Spacer()
-                            Button(action: {
-                                // Action for adding location
-//                                self.isShowingLocationPicker.toggle()
-                                self.isShowingLocationPicker = true
-                            }) {
-                                HStack {
-                                    Image(systemName: "location")
-                                }
-                            }
-                            .popover(isPresented: $isShowingLocationPicker) {
-                                // Photo picker view goes here
-                                // PhotoPickerView()
-                            }
-                            
-                            Spacer()
-                        }
-                        .font(.title3)
-                        .padding()
-                    }
-                    
-#else
-                    Group{
-                        HStack{
-                            Button(action: {
-                                // Action for adding photo
-                                self.isShowingPhotoPicker.toggle()
-                            }) {
-                                HStack {
-                                    Image(systemName: "photo")
-                                    Text("Add Photo")
-                                }
-                            }
-                            Button(action: {
-                                // Action for recording audio
-                                self.isRecordingAudio.toggle()
-                            }) {
-                                HStack {
-                                    Image(systemName: "mic")
-                                    Text("Add Audio Recording")
-                                }
-                            }
-                            Button(action: {
-                                // Action for adding location
-                                self.isShowingLocationPicker.toggle()
-                            }) {
-                                HStack {
-                                    Image(systemName: "location")
-                                    Text("Add Location")
-                                }
-                            }
-                        }
-                    }
-#endif
-                Spacer()
-                
-//                TabView(selection: $selectedTab){
-//                    DateView()
-//                        .tag(0)
-//                        .tabItem {
-//                            Label("Date", systemImage: "calendar")
-//                            Text("Tab 1", comment: "Tab bar title")
-//                        }
-//                    
-//                    ExclusiveView()
-//                        .tag(1)
-//                        .tabItem {
-//                            Label("Motivation", systemImage: "sparkles")
-//                            Text("Tab 1", comment: "Tab bar title")
-//                        }
-//                    
-//                }
-                
             }
+            
+#endif
+            //            Spacer()
+        }
+            TabView(selection: $selectedTab){
+//                                DateView()
+
+                    Spacer()
+                        .tag(0)
+                        .tabItem {
+                            Label("Date", systemImage: "calendar")
+                            Text("Tab 1", comment: "Tab bar title")
+                        }
+                    
+                    
+//                                    ExclusiveView()
+                    Spacer()
+                        .tag(1)
+                        .tabItem {
+                            Label("Motivation", systemImage: "sparkles")
+                            Text("Tab 1", comment: "Tab bar title")
+                        }
+    
+            }
+            .frame(height: 40)
+            
+        }
         .toolbar{
             ToolbarItemGroup(placement: .primaryAction) {
                 Button("Done") {
@@ -170,7 +168,13 @@ struct TodayView: View {
                 }
                 .bold()
                 .foregroundStyle(Color.blue)
+                Button {
+                    //add to best memories
+                } label: {
+                    Image(systemName: "heart")
+                }
             }
+         
             //#endif
             ////                ToolbarItem {
             ////                    Button(action: addItem) {
@@ -181,14 +185,12 @@ struct TodayView: View {
             //
         }
     }
-    
     func doneSave(){
         print("Saving in progress...")
         
         presentationMode.wrappedValue.dismiss()
     }
 }
-            
   
 //        #if os(iOS)
 //        .navigationBarTitle("New Journal Entry")
@@ -197,7 +199,7 @@ struct TodayView: View {
 //        #endif
         
         
-
-#Preview {
-    TodayView()
-}
+//
+//#Preview {
+//    TodayView(selectedTab: )
+//}

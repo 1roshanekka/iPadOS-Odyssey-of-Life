@@ -24,7 +24,8 @@ struct SideBarView: View {
         NavigationStack{
             List(selection: $navigationManager.selectionState){
                 
-                Section(header: Text("Odyssey of Life")){
+//                Section(header: Text("Odyssey of Life")){
+                Section(){
                     ForEach(dataManager.sidebarMenu1) { options in
                         //                        NavigationLink(options.menuName, value: SelectionState.sidebarMenu1(options))
                         //                            .onAppear()

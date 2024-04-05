@@ -81,17 +81,9 @@
 			isa = PBXGroup;
 			children = (
 				5A1AD32E2BB89FEE008E4E08 /* DiaryView.swift */,
-				5A9127382BBAFC4600C83B37 /* inner */,
+				5A9127382BBAFC4600C83B37 /* DetailViewGroup1 */,
 			);
 			path = "Detail View";
-			sourceTree = "<group>";
-		};
-		5A1AD32D2BB89DB5008E4E08 /* SideBar */ = {
-			isa = PBXGroup;
-			children = (
-				5A86F9542BB1E380006562CC /* SideBarView.swift */,
-			);
-			path = SideBar;
 			sourceTree = "<group>";
 		};
 		5A32564E2BBF20E300FB74B5 /* addElements */ = {
@@ -100,6 +92,15 @@
 				5A32564F2BBF20FB00FB74B5 /* PhotoPickerView.swift */,
 			);
 			path = addElements;
+			sourceTree = "<group>";
+		};
+		5A37232A2BBFE86600D77945 /* TabView */ = {
+			isa = PBXGroup;
+			children = (
+				5A80F86E2BB5D683006D7F73 /* DateView.swift */,
+				5A86F95A2BB1E443006562CC /* ExclusiveView.swift */,
+			);
+			path = TabView;
 			sourceTree = "<group>";
 		};
 		5A7DBEC92BB5DAC800CDDB39 /* Models */ = {
@@ -136,6 +137,7 @@
 				5A3256532BBF372E00FB74B5 /* DataBaseView.swift */,
 				5A3256552BBF3CE900FB74B5 /* EditDataView.swift */,
 				5A86F9452BB1E34A006562CC /* ContentView.swift */,
+				5A32564E2BBF20E300FB74B5 /* addElements */,
 				5A7DBEC92BB5DAC800CDDB39 /* Models */,
 				5A86F95C2BB1E463006562CC /* Views */,
 				5A86F9472BB1E34A006562CC /* Item.swift */,
@@ -157,38 +159,44 @@
 		5A86F95C2BB1E463006562CC /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				5A1AD3272BB89A50008E4E08 /* menu1.swift */,
-				5A1AD3292BB89B18008E4E08 /* menu2.swift */,
-				5A1AD32D2BB89DB5008E4E08 /* SideBar */,
+				5A86F9542BB1E380006562CC /* SideBarView.swift */,
+				5AD009502BC09283003F6FA1 /* sideMenues */,
 				5A1AD3222BB892B4008E4E08 /* Detail View */,
-				5A80F86E2BB5D683006D7F73 /* DateView.swift */,
-				5A86F95A2BB1E443006562CC /* ExclusiveView.swift */,
 				5AA090B52BBBD51900DA7706 /* LoginView.swift */,
-				5A32564E2BBF20E300FB74B5 /* addElements */,
 				5A91273B2BBAFCB800C83B37 /* cluster1 */,
 			);
 			path = Views;
 			sourceTree = "<group>";
 		};
-		5A9127382BBAFC4600C83B37 /* inner */ = {
+		5A9127382BBAFC4600C83B37 /* DetailViewGroup1 */ = {
 			isa = PBXGroup;
 			children = (
 				5A1AD3302BB8A183008E4E08 /* OdysseyView.swift */,
 				5A1AD32B2BB89CA5008E4E08 /* TagView.swift */,
 				5A7DBED02BB5FED900CDDB39 /* settingsView.swift */,
 			);
-			path = inner;
+			path = DetailViewGroup1;
 			sourceTree = "<group>";
 		};
 		5A91273B2BBAFCB800C83B37 /* cluster1 */ = {
 			isa = PBXGroup;
 			children = (
+				5A37232A2BBFE86600D77945 /* TabView */,
 				5A9127392BBAFCB300C83B37 /* TodayView.swift */,
 				5AE215842BBC80B800B99CB1 /* entryView.swift */,
 				5AF337EB2BBACCB300381A96 /* AspectsView.swift */,
 				5A9127362BBAFC1800C83B37 /* MemoriesView.swift */,
 			);
 			path = cluster1;
+			sourceTree = "<group>";
+		};
+		5AD009502BC09283003F6FA1 /* sideMenues */ = {
+			isa = PBXGroup;
+			children = (
+				5A1AD3272BB89A50008E4E08 /* menu1.swift */,
+				5A1AD3292BB89B18008E4E08 /* menu2.swift */,
+			);
+			path = sideMenues;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

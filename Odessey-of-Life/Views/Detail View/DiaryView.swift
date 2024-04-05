@@ -26,7 +26,6 @@ struct DiaryView: View {
             case .sidebarMenu3:
 //                settingsView()
                 DataBaseView()
-                
             }
         }
         else{
