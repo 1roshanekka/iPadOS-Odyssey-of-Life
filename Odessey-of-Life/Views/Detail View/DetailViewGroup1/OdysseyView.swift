@@ -24,16 +24,12 @@ struct OdysseyView: View {
 //    @State private var selectedEditNote: journalDataModel = journalDataModel(entryNote: "", entryDate: Date())
     
     @State private var selectedTab = 0
-    @State private var columnVisibility = NavigationSplitViewVisibility.all
-    
     @State private var selectedDate: Date? = nil // Selected date
     
     
     let passedVar : menu1
     
     var body: some View {
-        
-        let ratio: CGFloat // Ratio for splitting width
         
         VStack {
             switch passedVar.menuNo {
@@ -50,27 +46,28 @@ struct OdysseyView: View {
 //                    NavigationStack(path: $path){
 //                        TodayView(selectedDate: $selectedDate, editNote: journalDataModel(entryNote: "", entryDate: Date()))
                 GeometryReader { geometry in
-                            HStack {
-                                DateView(selectedDate: $selectedDate)
-                                    .frame(width: 350)
-                                Spacer()
-                                TodayView(selectedDate: $selectedDate, editNote: journalDataModel(entryNote: "", entryDate: Date()))
-//                                    .frame(width: geometry.size.width * (1 - 0.3))
+                        HStack {
+                            Group{
+                                if(selectedTab==0) {
+                                    DateView(selectedDate: $selectedDate)
+                                }
+                                else {
+                                    ExclusiveView()
+                                }
                             }
+                            .frame(width: 350)
+//                                Spacer()
+                            TodayView(selectedDate: $selectedDate, editNote: journalDataModel(entryNote: "", entryDate: Date()))
                         }
+                    }
 
                 TabView(selection: $selectedTab){
-        //                                DateView()
-
                         Spacer()
                             .tag(0)
                             .tabItem {
                                 Label("Date", systemImage: "calendar")
                                 Text("Tab 1", comment: "Tab bar title")
                             }
-                        
-                        
-        //                                    ExclusiveView()
                         Spacer()
                             .tag(1)
                             .tabItem {

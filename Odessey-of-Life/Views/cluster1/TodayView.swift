@@ -41,7 +41,7 @@ struct TodayView: View {
             Form{
                 Section{
                     TextField("How is your day going?..", text: $editNote.entryNote, axis: .vertical)
-                        .padding(.bottom    , 200)
+                    .padding(.bottom    , 200)
                     
                     VStack(alignment: .center){
 //                        Text(currentDate, formatter: dateFormatter)
@@ -61,7 +61,7 @@ struct TodayView: View {
                 //            }
                 
                 
-#if os(iOS)
+
                 Group{
                     HStack(alignment: .center)
                     {
@@ -116,40 +116,8 @@ struct TodayView: View {
                 }
             
             
-#else
-            Group{
-                HStack{
-                    Button(action: {
-                        // Action for adding photo
-                        self.isShowingPhotoPicker.toggle()
-                    }) {
-                        HStack {
-                            Image(systemName: "photo")
-                            Text("Add Photo")
-                        }
-                    }
-                    Button(action: {
-                        // Action for recording audio
-                        self.isRecordingAudio.toggle()
-                    }) {
-                        HStack {
-                            Image(systemName: "mic")
-                            Text("Add Audio Recording")
-                        }
-                    }
-                    Button(action: {
-                        // Action for adding location
-                        self.isShowingLocationPicker.toggle()
-                    }) {
-                        HStack {
-                            Image(systemName: "location")
-                            Text("Add Location")
-                        }
-                    }
-                }
-            }
-            
-#endif
+
+
             //            Spacer()
         }
             
@@ -161,10 +129,18 @@ struct TodayView: View {
 //                // Perform any necessary actions here based on the new selected date
 //            }
 //        }
+        .onChange(of: editNote.entryNote) { newValue in
+            if !newValue.isEmpty && (newValue.last == "\n") {
+                // Save the note when something is entered and Enter is pressed
+                doneSave()
+            }
+        }
         .onChange(of: selectedDate) { newDate in
             if let newDate = newDate {
                 print("Selected date changed to: \(newDate)")
-                doneSave()
+                print("updated on Today View")
+//                doneSave()
+                
                 // Access the first fetched entry (assuming single entry per date)
 //                if let entry = fetchedEntries.first {
 //                    editNote.entryNote = entry.entryNote // Update text field
@@ -178,36 +154,28 @@ struct TodayView: View {
 
         .toolbar{
             ToolbarItemGroup(placement: .primaryAction) {
-//                Button("Done") {
-//                    // commit changes
-//                    doneSave()
-////                    addJournal()
-//                }
-//                .bold()
-//                .foregroundStyle(Color.blue)
+                Button("Done") {
+                    // commit changes
+                    doneSave()
+//                    addJournal()
+                }
+                .bold()
+                .foregroundStyle(Color.blue)
                 Button {
                     //add to best memories
                 } label: {
                     Image(systemName: "heart")
                 }
             }
-         
-            //#endif
-            ////                ToolbarItem {
-            ////                    Button(action: addItem) {
-            ////                        Label("Add Item", systemImage: "plus")
-            ////                    }
-            ////                }
-            //        }
-            //
         }
     }
     func doneSave(){
         print("Saving in progress...")
-        let note = journalDataModel(entryNote: "", entryDate: Date())
+        let note = journalDataModel(entryNote: "\(selectedDate)", entryDate: Date())
         modelContext.insert(note)
-        
+        print("Saved !")
 //        presentationMode.wrappedValue.dismiss()
+        
     }
 }
   
