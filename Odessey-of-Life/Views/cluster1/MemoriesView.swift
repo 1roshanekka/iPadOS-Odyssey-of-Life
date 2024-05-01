@@ -15,7 +15,7 @@ struct MemoriesView: View {
     @Query var dailyNotes: [journalDataModel]
     
     var body: some View {
-        NavigationStack{
+        NavigationStack(path: $path){
             
             //grids of 
             List{
@@ -36,10 +36,19 @@ struct MemoriesView: View {
                 
                 EditDataView(editNote: newView)
             }
+            .toolbar {
+                Button("Done", systemImage: "plus", action: addJournal)
+            }
 
             
         }
         .navigationTitle("Memories")
+    }
+    func addJournal(){
+        let note = journalDataModel(entryNote: "", entryDate: Date())
+        modelContext.insert(note)
+        
+        path.append(note)
     }
 }
 

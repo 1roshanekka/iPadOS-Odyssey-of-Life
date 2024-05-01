@@ -38,7 +38,10 @@ struct SideBarView: View {
                                 Image(systemName: options.iconName)
                                     .foregroundStyle(menuColorMap[options.menuNo] ?? .black) // Use black as default
                                 Text(options.menuName)
+                                
                             }
+
+                            
                         }
                     }
                     

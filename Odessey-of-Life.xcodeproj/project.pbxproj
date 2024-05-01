@@ -31,7 +31,6 @@
 		5A9127372BBAFC1800C83B37 /* MemoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9127362BBAFC1800C83B37 /* MemoriesView.swift */; };
 		5A91273A2BBAFCB300C83B37 /* TodayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9127392BBAFCB300C83B37 /* TodayView.swift */; };
 		5AA090B62BBBD51900DA7706 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AA090B52BBBD51900DA7706 /* LoginView.swift */; };
-		5AE215852BBC80B800B99CB1 /* entryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AE215842BBC80B800B99CB1 /* entryView.swift */; };
 		5AF337EC2BBACCB300381A96 /* AspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AF337EB2BBACCB300381A96 /* AspectsView.swift */; };
 /* End PBXBuildFile section */
 
@@ -62,7 +61,6 @@
 		5A9127362BBAFC1800C83B37 /* MemoriesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemoriesView.swift; sourceTree = "<group>"; };
 		5A9127392BBAFCB300C83B37 /* TodayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayView.swift; sourceTree = "<group>"; };
 		5AA090B52BBBD51900DA7706 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
-		5AE215842BBC80B800B99CB1 /* entryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = entryView.swift; sourceTree = "<group>"; };
 		5AF337EB2BBACCB300381A96 /* AspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -183,7 +181,6 @@
 			children = (
 				5A37232A2BBFE86600D77945 /* TabView */,
 				5A9127392BBAFCB300C83B37 /* TodayView.swift */,
-				5AE215842BBC80B800B99CB1 /* entryView.swift */,
 				5AF337EB2BBACCB300381A96 /* AspectsView.swift */,
 				5A9127362BBAFC1800C83B37 /* MemoriesView.swift */,
 			);
@@ -283,7 +280,6 @@
 				5A86F9552BB1E380006562CC /* SideBarView.swift in Sources */,
 				5A1AD3282BB89A50008E4E08 /* menu1.swift in Sources */,
 				5A3256522BBF30B900FB74B5 /* journalDataModel.swift in Sources */,
-				5AE215852BBC80B800B99CB1 /* entryView.swift in Sources */,
 				5A86F95B2BB1E443006562CC /* ExclusiveView.swift in Sources */,
 				5AF337EC2BBACCB300381A96 /* AspectsView.swift in Sources */,
 				5A7DBED12BB5FED900CDDB39 /* settingsView.swift in Sources */,

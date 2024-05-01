@@ -10,21 +10,16 @@ import SwiftData
 
 struct ContentView: View {
     
-    @State private var showThirdColumn = false
-    
     @StateObject var dataManager = ModelDataManager()
     @StateObject var navigationStateManager = navStateManager()
     
-    
-    
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-    
     @State private var searchItem : String = ""
+    
+    @State private var columnVisibility = NavigationSplitViewVisibility.detailOnly
     
     
     var body: some View {
-        NavigationSplitView {
+        NavigationSplitView(columnVisibility: $columnVisibility) {
             /*
              List {
              ForEach(items) { item in

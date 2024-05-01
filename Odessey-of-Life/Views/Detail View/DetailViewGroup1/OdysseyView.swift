@@ -6,6 +6,7 @@
 //
 
 /* view of common */
+import SwiftData
 import SwiftUI
 
 struct OdysseyView: View {
@@ -13,29 +14,78 @@ struct OdysseyView: View {
     @EnvironmentObject var navigationManager: navStateManager
     @EnvironmentObject var dataManager : ModelDataManager
     
+    
+    @Environment(\.modelContext) var modelContext
+    @State private var path = [journalDataModel]()
+
+    @Query var dailyNotes: [journalDataModel]
+    
+    
+//    @State private var selectedEditNote: journalDataModel = journalDataModel(entryNote: "", entryDate: Date())
+    
     @State private var selectedTab = 0
     @State private var columnVisibility = NavigationSplitViewVisibility.all
     
-//    @State var textInput: String? = nil
+    @State private var selectedDate: Date? = nil // Selected date
+    
     
     let passedVar : menu1
     
     var body: some View {
-        NavigationStack {
+        
+        let ratio: CGFloat // Ratio for splitting width
+        
+        VStack {
             switch passedVar.menuNo {
                 case 1:
-                NavigationSplitView(columnVisibility: $columnVisibility) {
-                    if selectedTab == 0 {
-                        DateView()
-                            .toolbar(removing: .sidebarToggle)
-                    } else {
-                        ExclusiveView()
-                            .toolbar(removing: .sidebarToggle)
-                    }
-                } detail: {
-                    TodayView(selectedTab: $selectedTab)
+//                NavigationSplitView(columnVisibility: $columnVisibility) {
+//                    if selectedTab == 0 {
+//                        DateView(selectedDate: $selectedDate) // Pass the binding to DateView
+//                            .toolbar(removing: .sidebarToggle)
+//                    } else {
+//                        ExclusiveView()
+//                            .toolbar(removing: .sidebarToggle)
+//                    }
+//                } detail: {
+//                    NavigationStack(path: $path){
+//                        TodayView(selectedDate: $selectedDate, editNote: journalDataModel(entryNote: "", entryDate: Date()))
+                GeometryReader { geometry in
+                            HStack {
+                                DateView(selectedDate: $selectedDate)
+                                    .frame(width: 350)
+                                Spacer()
+                                TodayView(selectedDate: $selectedDate, editNote: journalDataModel(entryNote: "", entryDate: Date()))
+//                                    .frame(width: geometry.size.width * (1 - 0.3))
+                            }
+                        }
+
+                TabView(selection: $selectedTab){
+        //                                DateView()
+
+                        Spacer()
+                            .tag(0)
+                            .tabItem {
+                                Label("Date", systemImage: "calendar")
+                                Text("Tab 1", comment: "Tab bar title")
+                            }
+                        
+                        
+        //                                    ExclusiveView()
+                        Spacer()
+                            .tag(1)
+                            .tabItem {
+                                Label("Motivation", systemImage: "sparkles")
+                                Text("Tab 1", comment: "Tab bar title")
+                            }
+
                 }
-                .navigationSplitViewStyle(.balanced)
+                .frame(height: 40)
+//                    .toolbar {
+//                        Button("Done", action: addJournal)
+//                    }
+
+
+//                    TodayView(selectedTab: $selectedTab, selectedDate: $selectedDate)
                 
                 case 2:
                     AspectsView()
@@ -46,14 +96,24 @@ struct OdysseyView: View {
                 }
             
         }
+//        .onReceive(selectedDate.publisher, perform: { date in
+//            // Do something with the selected date
+//            if let date = date {
+//                print("Selected date:", date)
+//                // You can update your model or perform any action with the selected date here
+//            }
+//        })
 //        .onAppear(){
 //            print(navigationManager)
 //            print(dataManager)
 //        }
-        .navigationTitle("Your Life Today")
+    }
+    func addJournal(){
+        let note = journalDataModel(entryNote: "", entryDate: Date())
+        modelContext.insert(note)
     }
 }
 
-#Preview {
-    OdysseyView(passedVar: menu1Items[1])
-}
+//#Preview {
+//    OdysseyView(passedVar: menu1Items[1])
+//}

@@ -29,29 +29,8 @@ struct DiaryView: View {
             }
         }
         else{
-            Text("Select something")
+            AspectsView()
         }
-//        VStack{
-//            Text("")
-//            Form {
-//                TextField(text: $enteredText, prompt: Text("Required")) {
-////                    Text("Username")
-//                }
-//            }
-//            VStack{
-//                HStack{
-//                    Button(action: addPhotos, label: {
-//                        Image(systemName: "photo.fill")
-//                    })
-//                    Button(action: addPhotos, label: {
-//                        Image(systemName: "mic.fill")
-//                    })
-//                    Button(action: addPhotos, label: {
-//                        Image(systemName: "photo.fill")
-//                    })
-//                }
-//            }
-//        }
     }
 }
 

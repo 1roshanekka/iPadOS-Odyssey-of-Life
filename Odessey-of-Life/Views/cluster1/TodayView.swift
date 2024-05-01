@@ -4,14 +4,15 @@
 //
 //  Created by Roshan Ekka on 01/04/24.
 //
-
+import SwiftData
 import SwiftUI
 
 struct TodayView: View {
     
+    @Environment(\.modelContext) var modelContext
+    
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var navigationManager: navStateManager
-    
     
     let currentDate = Date()
     let dateFormatter: DateFormatter = {
@@ -20,29 +21,43 @@ struct TodayView: View {
         return formatter
     }()
     
-    //    @State var selectedTab = 0
-    @Binding var selectedTab: Int
+    @Binding var selectedDate: Date? // Binding to selected date
     
+//    @State private var journalEntry: String = ""
     
-    @State private var journalEntry: String = ""
     @State private var isShowingPhotoPicker: Bool = false
     @State private var isRecordingAudio: Bool = false
     @State private var isShowingLocationPicker: Bool = false
     
+    @Bindable var editNote: journalDataModel
     
+    @Query var dailyNotes: [journalDataModel]
+//    @Bindable var editNote: journalDataModel = journalDataModel()
+//    @FetchRequest<journalDataModel>(sortDescriptors: []) private var fetchedEntries: FetchedResults<journalDataModel>
+
     
     var body: some View {
         VStack{
             Form{
                 Section{
-                    TextField("How is you day going?..", text: $journalEntry)
-                        .padding(.bottom, 300)
+                    TextField("How is your day going?..", text: $editNote.entryNote, axis: .vertical)
+                        .padding(.bottom    , 200)
                     
                     VStack(alignment: .center){
-                        Text(currentDate, formatter: dateFormatter)
+//                        Text(currentDate, formatter: dateFormatter)
+                        Text(selectedDate.map { dateFormatter.string(from: $0) } ?? "No date selected")
+                    }
+                    List{
+                        ForEach(dailyNotes){ note in
+                            
+                            NavigationLink(value: note){
+                                Text(note.entryNote)
+                            }
+                        }
                     }
                     
                 }
+                
                 //            }
                 
                 
@@ -137,37 +152,39 @@ struct TodayView: View {
 #endif
             //            Spacer()
         }
-            TabView(selection: $selectedTab){
-//                                DateView()
-
-                    Spacer()
-                        .tag(0)
-                        .tabItem {
-                            Label("Date", systemImage: "calendar")
-                            Text("Tab 1", comment: "Tab bar title")
-                        }
-                    
-                    
-//                                    ExclusiveView()
-                    Spacer()
-                        .tag(1)
-                        .tabItem {
-                            Label("Motivation", systemImage: "sparkles")
-                            Text("Tab 1", comment: "Tab bar title")
-                        }
-    
-            }
-            .frame(height: 40)
             
         }
+//        .onChange(of: selectedDate) { newDate in
+//            // Update the view or trigger any actions here based on the selected date
+//            if let newDate = newDate {
+//                
+//                // Perform any necessary actions here based on the new selected date
+//            }
+//        }
+        .onChange(of: selectedDate) { newDate in
+            if let newDate = newDate {
+                print("Selected date changed to: \(newDate)")
+                doneSave()
+                // Access the first fetched entry (assuming single entry per date)
+//                if let entry = fetchedEntries.first {
+//                    editNote.entryNote = entry.entryNote // Update text field
+//                    
+//                } else {
+//                    // Handle case where no entry exists for the selected date
+//                    print("No entry found for selected date")
+//                }
+            }
+        }
+
         .toolbar{
             ToolbarItemGroup(placement: .primaryAction) {
-                Button("Done") {
-                    // commit changes
-                    doneSave()
-                }
-                .bold()
-                .foregroundStyle(Color.blue)
+//                Button("Done") {
+//                    // commit changes
+//                    doneSave()
+////                    addJournal()
+//                }
+//                .bold()
+//                .foregroundStyle(Color.blue)
                 Button {
                     //add to best memories
                 } label: {
@@ -187,8 +204,10 @@ struct TodayView: View {
     }
     func doneSave(){
         print("Saving in progress...")
+        let note = journalDataModel(entryNote: "", entryDate: Date())
+        modelContext.insert(note)
         
-        presentationMode.wrappedValue.dismiss()
+//        presentationMode.wrappedValue.dismiss()
     }
 }
   
