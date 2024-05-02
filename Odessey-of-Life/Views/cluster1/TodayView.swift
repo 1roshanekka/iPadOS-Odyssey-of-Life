@@ -37,91 +37,98 @@ struct TodayView: View {
 
     
     var body: some View {
-        VStack{
-            Form{
-                Section{
-                    TextField("How is your day going?..", text: $editNote.entryNote, axis: .vertical)
-                    .padding(.bottom    , 240)
-                    
-                    VStack(alignment: .center){
-//                        Text(currentDate, formatter: dateFormatter)
-                        Text(selectedDate.map { dateFormatter.string(from: $0) } ?? "No date selected")
+        NavigationStack{
+            VStack{
+                Form{
+                    Section{
+                        TextField("How is your day going?..", text: $editNote.entryNote, axis: .vertical)
+                            .padding(.bottom    , 240)
+                            .onSubmit {
+                                print("pressed enter i guess , now saving")
+                                doneSave()
+                            }
+                        
+                        VStack(alignment: .center){
+                            //                        Text(currentDate, formatter: dateFormatter)
+                            Text(selectedDate.map { dateFormatter.string(from: $0) } ?? "No date selected")
+                        }
+                        List{
+                            ForEach(dailyNotes){ note in
+                                
+                                NavigationLink(value: note){
+                                    Text(note.entryNote)
+                                }
+                            }
+                        }
+                        
                     }
-                    List{
-                        ForEach(dailyNotes){ note in
+                    
+                    //            }
+                    
+                    
+                    
+                    Group{
+                        HStack(alignment: .center)
+                        {
+                            Spacer()
+                            Button(action: {
+                                // Action for adding photo
+                                self.isShowingPhotoPicker = true
+                            }) {
+                                HStack {
+                                    Image(systemName: "photo")
+                                }
+                            }
+                            .sheet(isPresented: $isShowingPhotoPicker) {
+                                // Photo picker view goes here
+                                //                            PhotoPickerView()
+                            }
                             
-                            NavigationLink(value: note){
-                                Text(note.entryNote)
+                            Spacer()
+                            Button(action: {
+                                // Action for recording audio
+                                //                                self.isRecordingAudio.toggle()
+                                self.isRecordingAudio = true
+                            }) {
+                                HStack {
+                                    Image(systemName: "mic")
+                                }
                             }
+                            .sheet(isPresented: $isRecordingAudio) {
+                                // Photo picker view goes here
+                                // PhotoPickerView()
+                            }
+                            
+                            Spacer()
+                            Button(action: {
+                                // Action for adding location
+                                //                                self.isShowingLocationPicker.toggle()
+                                self.isShowingLocationPicker = true
+                            }) {
+                                HStack {
+                                    Image(systemName: "location")
+                                }
+                            }
+                            .sheet(isPresented: $isShowingLocationPicker) {
+                                // Photo picker view goes here
+                                // PhotoPickerView()
+                            }
+                            
+                            Spacer()
                         }
+                        .font(.title3)
+                        .padding()
                     }
                     
+                    
+                    
+                    
+                    //            Spacer()
                 }
                 
-                //            }
-                
-                
-
-                Group{
-                    HStack(alignment: .center)
-                    {
-                        Spacer()
-                        Button(action: {
-                            // Action for adding photo
-                            self.isShowingPhotoPicker = true
-                        }) {
-                            HStack {
-                                Image(systemName: "photo")
-                            }
-                        }
-                        .sheet(isPresented: $isShowingPhotoPicker) {
-                            // Photo picker view goes here
-//                            PhotoPickerView()
-                        }
-                        
-                        Spacer()
-                        Button(action: {
-                            // Action for recording audio
-                            //                                self.isRecordingAudio.toggle()
-                            self.isRecordingAudio = true
-                        }) {
-                            HStack {
-                                Image(systemName: "mic")
-                            }
-                        }
-                        .sheet(isPresented: $isRecordingAudio) {
-                            // Photo picker view goes here
-                            // PhotoPickerView()
-                        }
-                        
-                        Spacer()
-                        Button(action: {
-                            // Action for adding location
-                            //                                self.isShowingLocationPicker.toggle()
-                            self.isShowingLocationPicker = true
-                        }) {
-                            HStack {
-                                Image(systemName: "location")
-                            }
-                        }
-                        .sheet(isPresented: $isShowingLocationPicker) {
-                            // Photo picker view goes here
-                            // PhotoPickerView()
-                        }
-                        
-                        Spacer()
-                    }
-                    .font(.title3)
-                    .padding()
-                }
-            
-            
-
-
-            //            Spacer()
+            }
         }
-            
-        }
+        
 //        .onChange(of: selectedDate) { newDate in
 //            // Update the view or trigger any actions here based on the selected date
 //            if let newDate = newDate {
@@ -129,12 +136,12 @@ struct TodayView: View {
 //                // Perform any necessary actions here based on the new selected date
 //            }
 //        }
-        .onChange(of: editNote.entryNote) { newValue in
-            if !newValue.isEmpty && (newValue.last == "\n") {
-                // Save the note when something is entered and Enter is pressed
-                doneSave()
-            }
-        }
+//        .onChange(of: editNote.entryNote) { newValue in
+//            if !newValue.isEmpty && (newValue.last == "\n") {
+//                // Save the note when something is entered and Enter is pressed
+//                doneSave()
+//            }
+//        }
         .onChange(of: selectedDate) { newDate in
             if let newDate = newDate {
                 print("Selected date changed to: \(newDate)")

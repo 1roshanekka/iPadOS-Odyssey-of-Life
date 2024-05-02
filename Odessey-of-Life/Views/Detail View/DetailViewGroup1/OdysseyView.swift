@@ -9,6 +9,17 @@
 import SwiftData
 import SwiftUI
 
+extension View {
+    func hideKeyboard(){
+        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+        
+        
+        //hides keyboard
+        // implement that when the text field empty then dont save if something typed then save it
+        
+    }
+}
+
 struct OdysseyView: View {
     
     @EnvironmentObject var navigationManager: navStateManager
@@ -95,6 +106,9 @@ struct OdysseyView: View {
                     EmptyView()
                 }
             
+        }
+        .onTapGesture {
+            self.hideKeyboard()
         }
 //        .onReceive(selectedDate.publisher, perform: { date in
 //            // Do something with the selected date
