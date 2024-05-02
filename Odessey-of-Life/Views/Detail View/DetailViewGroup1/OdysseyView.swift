@@ -46,7 +46,7 @@ struct OdysseyView: View {
 //                    NavigationStack(path: $path){
 //                        TodayView(selectedDate: $selectedDate, editNote: journalDataModel(entryNote: "", entryDate: Date()))
                 GeometryReader { geometry in
-                        HStack {
+                    HStack(spacing: 0) {
                             Group{
                                 if(selectedTab==0) {
                                     DateView(selectedDate: $selectedDate)
@@ -61,22 +61,25 @@ struct OdysseyView: View {
                         }
                     }
 
-                TabView(selection: $selectedTab){
-                        Spacer()
+                VStack{
+                    TabView(selection: $selectedTab){
+                        //                        Spacer()
+                        Text("")
                             .tag(0)
                             .tabItem {
                                 Label("Date", systemImage: "calendar")
                                 Text("Tab 1", comment: "Tab bar title")
                             }
-                        Spacer()
+                        //                        Spacer()
+                        Text("")
                             .tag(1)
                             .tabItem {
                                 Label("Motivation", systemImage: "sparkles")
                                 Text("Tab 1", comment: "Tab bar title")
                             }
-
-                }
-                .frame(height: 40)
+                        
+                    }
+                }.frame(height: 40)
 //                    .toolbar {
 //                        Button("Done", action: addJournal)
 //                    }

@@ -41,7 +41,7 @@ struct TodayView: View {
             Form{
                 Section{
                     TextField("How is your day going?..", text: $editNote.entryNote, axis: .vertical)
-                    .padding(.bottom    , 200)
+                    .padding(.bottom    , 240)
                     
                     VStack(alignment: .center){
 //                        Text(currentDate, formatter: dateFormatter)
@@ -154,13 +154,13 @@ struct TodayView: View {
 
         .toolbar{
             ToolbarItemGroup(placement: .primaryAction) {
-                Button("Done") {
-                    // commit changes
-                    doneSave()
-//                    addJournal()
-                }
-                .bold()
-                .foregroundStyle(Color.blue)
+//                Button("Done") {
+//                    // commit changes
+//                    doneSave()
+////                    addJournal()
+//                }
+//                .bold()
+//                .foregroundStyle(Color.blue)
                 Button {
                     //add to best memories
                 } label: {
