@@ -43,9 +43,9 @@ struct settingsView: View {
                 }
                 
             }
-            .onChange(of: darkTheme) { newValue in
-                theme = newValue ? "Dark Mode" : "Light Mode"
-            }
+//            .onChange(of: darkTheme) { newValue in
+//                theme = newValue ? "Dark Mode" : "Light Mode"
+//            }
             
 #endif
         }

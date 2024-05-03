@@ -7,6 +7,7 @@
 import SwiftData
 import SwiftUI
 
+
 struct TodayView: View {
     
     @Environment(\.modelContext) var modelContext
@@ -14,7 +15,7 @@ struct TodayView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var navigationManager: navStateManager
     
-    let currentDate = Date()
+//    let currentDate = Date()
     let dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "EEEE, dd MMMM"
@@ -29,6 +30,9 @@ struct TodayView: View {
     @State private var isRecordingAudio: Bool = false
     @State private var isShowingLocationPicker: Bool = false
     
+    
+    @FocusState private var noteFocussed: Bool
+    
     @Bindable var editNote: journalDataModel
     
     @Query var dailyNotes: [journalDataModel]
@@ -37,13 +41,15 @@ struct TodayView: View {
 
     
     var body: some View {
-        NavigationStack{
             VStack{
                 Form{
                     Section{
                         TextField("How is your day going?..", text: $editNote.entryNote, axis: .vertical)
-                            .padding(.bottom    , 240)
+                            .focused($noteFocussed)
+//                            .padding(.bottom    , 240)
                             .onSubmit {
+                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                print("\($editNote.entryNote)")
                                 print("pressed enter i guess , now saving")
                                 doneSave()
                             }
@@ -54,7 +60,6 @@ struct TodayView: View {
                         }
                         List{
                             ForEach(dailyNotes){ note in
-                                
                                 NavigationLink(value: note){
                                     Text(note.entryNote)
                                 }
@@ -62,11 +67,10 @@ struct TodayView: View {
                         }
                         
                     }
+
                     
-                    //            }
-                    
-                    
-                    
+                  /*
+                
                     Group{
                         HStack(alignment: .center)
                         {
@@ -120,14 +124,32 @@ struct TodayView: View {
                         .padding()
                     }
                     
+                    */
                     
-                    
-                    
-                    //            Spacer()
+                
                 }
                 
             }
-        }
+            .toolbar{
+                if noteFocussed {
+                    Button("Done"){
+                        noteFocussed = false
+                        doneSave()
+                    }
+                }
+            }
+            // Add gesture recognizer to the entire VStack
+//              .gesture(
+//                TapGesture()
+//                  .onEnded {
+//                    if !editNote.entryNote.isEmpty {
+////                      self.endEditing(of: ) // Dismiss the keyboard
+//                      doneSave() // Save the note
+//                    }
+//                  }
+//              )
+//              .edgesIgnoringSafeArea(.all) // Ignore safe area insets
+//            
         
 //        .onChange(of: selectedDate) { newDate in
 //            // Update the view or trigger any actions here based on the selected date
@@ -142,6 +164,7 @@ struct TodayView: View {
 //                doneSave()
 //            }
 //        }
+        
         .onChange(of: selectedDate) { newDate in
             if let newDate = newDate {
                 print("Selected date changed to: \(newDate)")
@@ -178,7 +201,7 @@ struct TodayView: View {
     }
     func doneSave(){
         print("Saving in progress...")
-        let note = journalDataModel(entryNote: "\(selectedDate)", entryDate: Date())
+        let note = journalDataModel(entryNote: $editNote.entryNote.wrappedValue, entryDate: Date())
         modelContext.insert(note)
         print("Saved !")
 //        presentationMode.wrappedValue.dismiss()
