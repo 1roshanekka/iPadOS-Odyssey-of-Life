@@ -22,7 +22,12 @@ struct MemoriesView: View {
                 ForEach(dailyNotes){ note in
                     
                     NavigationLink(value: note){
-                        Text(note.entryNote)
+                        VStack(alignment: .leading){
+                            Text(note.entryNote)
+                            Text(note.entryDateDisplay)
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                        }
                     }
                 }
             }
@@ -37,18 +42,29 @@ struct MemoriesView: View {
                 EditDataView(editNote: newView)
             }
             .toolbar {
-                Button("Done", systemImage: "plus", action: addJournal)
+                Button("Done", systemImage: "plus", action: doneSave)
             }
 
             
         }
         .navigationTitle("Memories")
     }
-    func addJournal(){
+    func doneSave(){
+        print("Saving in progress...")
         let note = journalDataModel(entryNote: "", entryDate: Date())
         modelContext.insert(note)
+        print("Saved !")
+//        presentationMode.wrappedValue.dismiss()
+        // Format the date for display
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "dd/MM/yyyy" // Adjust the format as desired
+            let formattedDate = dateFormatter.string(from: note.entryDate)
+
+            // Add the formatted date to the note
+            note.entryDateDisplay = formattedDate
+
+            path.append(note)
         
-        path.append(note)
     }
 }
 

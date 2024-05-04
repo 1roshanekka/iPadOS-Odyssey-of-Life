@@ -12,11 +12,16 @@ struct EditDataView: View {
     @Bindable var editNote: journalDataModel
     
     var body: some View {
-        VStack{
-            Form{
-                Section{
-                    TextField("How's your day going?.. ", text: $editNote.entryNote, axis: .vertical)
-                }
+        ZStack{
+//            Form{
+//                Section{
+//                    TextField("How's your day going?.. ", text: $editNote.entryNote, axis: .vertical)
+//                }
+//            }
+            VStack{
+                Text(editNote.entryNote)
+                Spacer()
+                Text(editNote.entryDateDisplay)
             }
         }
         .navigationTitle("Edit Journal")

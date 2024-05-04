@@ -13,6 +13,7 @@ import SwiftData
 class journalDataModel  {
     let id = UUID()
     var entryNote: String
+    var entryDateDisplay: String = ""
     var entryDate: Date
     
     init(entryNote: String, entryDate: Date) {
