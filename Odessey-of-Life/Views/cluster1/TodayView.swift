@@ -12,6 +12,9 @@ struct TodayView: View {
     
     @Environment(\.modelContext) var modelContext
     
+    // fetching the data
+    @Query var dailyNotes: [journalDataModel] = []
+    
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var navigationManager: navStateManager
     
@@ -30,19 +33,15 @@ struct TodayView: View {
     @State private var isRecordingAudio: Bool = false
     @State private var isShowingLocationPicker: Bool = false
     
+    @State var changedDate: Bool = false
     
     @FocusState private var noteFocussed: Bool
     
     @Bindable var editNote: journalDataModel
     
-    @Query var dailyNotes: [journalDataModel]
-    //    @Bindable var editNote: journalDataModel = journalDataModel()
-    //    @FetchRequest<journalDataModel>(sortDescriptors: []) private var fetchedEntries: FetchedResults<journalDataModel>
     
-    // Fetch the journal entry for the selected date
-    func fetchJournalEntry(for date: Date) -> journalDataModel? {
-        return dailyNotes.first { $0.entryDate == date }
-    }
+    
+    
 
     var body: some View {
         NavigationStack{
@@ -54,19 +53,16 @@ struct TodayView: View {
                         //                            .padding(.bottom    , 240)
                             .onSubmit {
                                 UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                print("\($editNote.entryNote)")
-                                print("pressed enter i guess , now saving")
-                                doneSave()
-                            }
+                                print("Content: \($editNote.entryNote)")
+                                if($editNote.entryNote.wrappedValue == ""){
+                                    print("not saving as its empty\n")
+                                }
+                                else{
+                                    doneSave()
+                                    print("Pressed enter, saving...")
+                                }
+                              }
                         
-                        if let selectedDate = selectedDate {
-                            if let entry = fetchJournalEntry(for: selectedDate) {
-                                Text(entry.entryNote)
-                            } else {
-                                // Clear the TextField if no entry exists for the selected date
-                                Text("")
-                            }
-                        }
                         
                         VStack(alignment: .center){
                             Text(selectedDate.map { dateFormatter.string(from: $0) } ?? "No date selected")
@@ -76,6 +72,11 @@ struct TodayView: View {
                                 NavigationLink(value: note){
                                     Text(note.entryNote)
                                     Text(note.entryDateDisplay) // Display the formatted date
+                                }
+                            }
+                            .onDelete{ indexSet in
+                                for index in indexSet {
+                                    modelContext.delete(dailyNotes[index])
                                 }
                             }
                         }
@@ -148,11 +149,13 @@ struct TodayView: View {
                 EditDataView(editNote: newView)
             }
         }
-        
         .onChange(of: selectedDate) { newDate in
             if let newDate = newDate {
                 print("Selected date changed to: \(newDate)")
                 print("updated on Today View")
+
+//                fetchData(for: newDate)
+                
             }
         }
         .toolbar {
@@ -175,10 +178,25 @@ struct TodayView: View {
     }
     func doneSave(){
         print("Saving in progress...")
+        
+        // note object
         let note = journalDataModel(entryNote: $editNote.entryNote.wrappedValue, entryDate: Date())
+            
+        // to save it in container
         modelContext.insert(note)
-        print("Saved !")
+        
+        print("autosaved")
+        
+        /*
+         
+        // we dont trust autosave
+        try! modelContext.save()
+         
+        */
+        
 //        presentationMode.wrappedValue.dismiss()
+        
+        // THE DISPLAY PART 
         // Format the date for display
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "dd/MM/yyyy" // Adjust the format as desired
@@ -191,44 +209,6 @@ struct TodayView: View {
         
     }
 }
-            // Add gesture recognizer to the entire VStack
-//              .gesture(
-//                TapGesture()
-//                  .onEnded {
-//                    if !editNote.entryNote.isEmpty {
-////                      self.endEditing(of: ) // Dismiss the keyboard
-//                      doneSave() // Save the note
-//                    }
-//                  }
-//              )
-//              .edgesIgnoringSafeArea(.all) // Ignore safe area insets
-//            
-        
-//        .onChange(of: selectedDate) { newDate in
-//            // Update the view or trigger any actions here based on the selected date
-//            if let newDate = newDate {
-//                
-//                // Perform any necessary actions here based on the new selected date
-//            }
-//        }
-//        .onChange(of: editNote.entryNote) { newValue in
-//            if !newValue.isEmpty && (newValue.last == "\n") {
-//                // Save the note when something is entered and Enter is pressed
-//                doneSave()
-//            }
-//        }
-        
-        
-//                doneSave()
-                
-                // Access the first fetched entry (assuming single entry per date)
-//                if let entry = fetchedEntries.first {
-//                    editNote.entryNote = entry.entryNote // Update text field
-//                    
-//                } else {
-//                    // Handle case where no entry exists for the selected date
-//                    print("No entry found for selected date")
-//                }
     
 //
 //#Preview {

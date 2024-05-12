@@ -14,9 +14,9 @@ class journalDataModel  {
     let id = UUID()
     var entryNote: String
     var entryDateDisplay: String = ""
-    var entryDate: Date
+    @Attribute(.unique) var entryDate: Date
     
-    init(entryNote: String, entryDate: Date) {
+    init(entryNote: String, entryDate: Date = Date.now) {
         self.entryNote = entryNote
         self.entryDate = entryDate
     }

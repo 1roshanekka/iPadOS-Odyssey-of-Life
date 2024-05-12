@@ -23,22 +23,21 @@ struct Odessey_of_LifeApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    let container: ModelContainer = {
+        let schema = Schema([journalDataModel.self])
+//        let configuration = ModelConfiguration
+        let container = try! ModelContainer(for: schema, configurations: [])
+        return container
+    }()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
     
         }
-//        .modelContainer(sharedModelContainer)
-        .modelContainer(for: journalDataModel.self)
-        
-        #if os(macOS)
-            Settings {
-                settingsView()
-            }
-            
-        #else
-        
-        #endif
+        .modelContainer(container)
+//        .modelContainer(for: journalDataModel.self)
+   
     }
 }
