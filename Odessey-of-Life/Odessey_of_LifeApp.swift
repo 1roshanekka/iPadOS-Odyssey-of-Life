@@ -12,11 +12,8 @@ import SwiftData
 struct Odessey_of_LifeApp: App {
 
     var sharedModelContainer: ModelContainer = {
-        let schema = Schema([
-            Item.self,
-        ])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
-
+        let schema = Schema([journalDataModel.self])
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
@@ -31,12 +28,17 @@ struct Odessey_of_LifeApp: App {
         return container
     }()
 
+//    func fetchText(for date: String) -> String? {
+//            let predicate = Predicate { $0.date == date }
+//            return container.fetch(TextEditorModel.self, predicate: predicate).first?.text
+//        }
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
     
         }
-        .modelContainer(container)
+        .modelContainer(sharedModelContainer)
 //        .modelContainer(for: journalDataModel.self)
    
     }

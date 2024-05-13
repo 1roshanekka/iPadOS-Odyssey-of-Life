@@ -10,13 +10,14 @@ import SwiftData
 
 
 @Model
-class journalDataModel  {
+class journalDataModel: ObservableObject  {
     let id = UUID()
     var entryNote: String
     var entryDateDisplay: String = ""
+    var isFavorite: Bool = false
     @Attribute(.unique) var entryDate: Date
     
-    init(entryNote: String, entryDate: Date = Date.now) {
+    init(entryNote: String, entryDate: Date) {
         self.entryNote = entryNote
         self.entryDate = entryDate
     }

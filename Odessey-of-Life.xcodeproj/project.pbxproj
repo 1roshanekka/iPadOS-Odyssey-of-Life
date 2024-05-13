@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A1933432BBDA3820084A50C /* dateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1933422BBDA3820084A50C /* dateModel.swift */; };
 		5A1AD3282BB89A50008E4E08 /* menu1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1AD3272BB89A50008E4E08 /* menu1.swift */; };
 		5A1AD32A2BB89B18008E4E08 /* menu2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1AD3292BB89B18008E4E08 /* menu2.swift */; };
 		5A1AD32C2BB89CA5008E4E08 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A1AD32B2BB89CA5008E4E08 /* TagView.swift */; };
@@ -35,7 +34,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		5A1933422BBDA3820084A50C /* dateModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dateModel.swift; sourceTree = "<group>"; };
 		5A1AD3272BB89A50008E4E08 /* menu1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menu1.swift; sourceTree = "<group>"; };
 		5A1AD3292BB89B18008E4E08 /* menu2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = menu2.swift; sourceTree = "<group>"; };
 		5A1AD32B2BB89CA5008E4E08 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 		5A86F9372BB1E34A006562CC = {
 			isa = PBXGroup;
 			children = (
-				5A1933422BBDA3820084A50C /* dateModel.swift */,
 				5A86F9422BB1E34A006562CC /* Odessey-of-Life */,
 				5A86F9412BB1E34A006562CC /* Products */,
 			);
@@ -276,7 +273,6 @@
 				5A1AD32F2BB89FEE008E4E08 /* DiaryView.swift in Sources */,
 				5A3256562BBF3CE900FB74B5 /* EditDataView.swift in Sources */,
 				5A86F9482BB1E34A006562CC /* Item.swift in Sources */,
-				5A1933432BBDA3820084A50C /* dateModel.swift in Sources */,
 				5A86F9552BB1E380006562CC /* SideBarView.swift in Sources */,
 				5A1AD3282BB89A50008E4E08 /* menu1.swift in Sources */,
 				5A3256522BBF30B900FB74B5 /* journalDataModel.swift in Sources */,

@@ -6,25 +6,15 @@
 //
 
 import SwiftUI
+import SwiftData
+
+
 
 struct DateView: View {
     @Binding var selectedDate: Date? // Binding to selected date
+    @State var dateEntry: Date
+
     
-    var body: some View {
-        InputForm(selectedDate: $selectedDate)
-    }
-}
-
-struct InputForm: View {
-    @Binding var selectedDate: Date?
-
-    @State private var dateEntry: Date
-
-    init(selectedDate: Binding<Date?>) {
-        _selectedDate = selectedDate
-        _dateEntry = State(initialValue: selectedDate.wrappedValue ?? Date())
-    }
-
     var body: some View {
         VStack {
             Form {
@@ -35,7 +25,7 @@ struct InputForm: View {
                 .datePickerStyle(.graphical)
                 .onChange(of: dateEntry) { newValue in
                     selectedDate = newValue
-                    print("Selected date: \(newValue)")
+                    print("Selected date from DateView: \(newValue)")
                 }
             }
         }

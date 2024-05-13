@@ -13,7 +13,9 @@ struct TodayView: View {
     @Environment(\.modelContext) var modelContext
     
     // fetching the data
-    @Query var dailyNotes: [journalDataModel] = []
+    @Query(sort: \journalDataModel.entryDate) var dailyNotes: [journalDataModel] = []
+    
+    @State var noteExisting : journalDataModel?
     
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var navigationManager: navStateManager
@@ -27,64 +29,73 @@ struct TodayView: View {
     
     @Binding var selectedDate: Date? // Binding to selected date
     
-    //    @State private var journalEntry: String = ""
-    
     @State private var isShowingPhotoPicker: Bool = false
     @State private var isRecordingAudio: Bool = false
     @State private var isShowingLocationPicker: Bool = false
     
     @State var changedDate: Bool = false
     
-    @FocusState private var noteFocussed: Bool
-    
+    // note that we pass in to the view
     @Bindable var editNote: journalDataModel
+    @State private var text = ""
     
-    
-    
-    
+    var noteFocussed: FocusState<Bool>.Binding
 
     var body: some View {
         NavigationStack{
-            VStack{
-                Form{
-                    Section{
-                        TextField("How is your day going?..", text: $editNote.entryNote, axis: .vertical)
-                            .focused($noteFocussed)
-                        //                            .padding(.bottom    , 240)
-                            .onSubmit {
-                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                print("Content: \($editNote.entryNote)")
-                                if($editNote.entryNote.wrappedValue == ""){
-                                    print("not saving as its empty\n")
-                                }
-                                else{
-                                    doneSave()
-                                    print("Pressed enter, saving...")
-                                }
-                              }
+            VStack(spacing: 0){
+//                List{
+
+                    TextEditor(text: $editNote.entryNote)
+//                    .onChange(of: selectedDate) { newDate in
+//                        text = dailyNotes.fetchText(for: newDate.rawValue) ?? ""
+//                    }
+                    .onAppear {
+                      loadTextForDate(date: selectedDate)
+                    }
+                    .onChange(of: selectedDate) { newDate in
+                      loadTextForDate(date: newDate)
+                    }
+                        .textFieldStyle(.roundedBorder)
+                        .focused(noteFocussed)
+                        .cornerRadius(10)
+                        .overlay(alignment: .topTrailing, content: {
+                            Text("How is your day going?..")
+//                                .foregroundStyle(.white)
+                                .padding(.leading, 5)
+                                .opacity(editNote.entryNote.isEmpty ? 1 : 0)
+                                .allowsHitTesting(false)
+                        })
                         
-                        
-                        VStack(alignment: .center){
-                            Text(selectedDate.map { dateFormatter.string(from: $0) } ?? "No date selected")
-                        }
-                        List{
-                            ForEach(dailyNotes){ note in
-                                NavigationLink(value: note){
-                                    Text(note.entryNote)
-                                    Text(note.entryDateDisplay) // Display the formatted date
-                                }
-                            }
-                            .onDelete{ indexSet in
-                                for index in indexSet {
-                                    modelContext.delete(dailyNotes[index])
-                                }
-                            }
-                        }
-                        
+                        .scrollContentBackground(.hidden)
+                        .multilineTextAlignment(.leading)
+                        .padding(15)
+                        .kerning(1.2)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 250)
+                        .background(Color(uiColor: .systemGray5))
+                
+////                        .background(.gray.opacity(0.15))
+//                        .onSubmit {
+//                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//                            print("Content: \($editNote.entryNote)")
+//                            if($editNote.entryNote.wrappedValue == ""){
+//                                print("not saving as its empty\n")
+//                            }
+//                            else{
+//                                doneSave()
+//                                print("Pressed enter, saving...")
+//                            }
+//                        }
+                    HStack(alignment: .firstTextBaseline){
+                        // if nothing selected, shows the current date
+                        Text(selectedDate != nil ? selectedDate.map { dateFormatter.string(from: $0) } ?? "" : dateFormatter.string(from: Date()))
+                        Text("lala")
                     }
                     
+                    Spacer()
                     
-                    /*
+                    
                      
                      Group{
                      HStack(alignment: .center)
@@ -139,12 +150,27 @@ struct TodayView: View {
                      .padding()
                      }
                      
-                     */
+                     Spacer()
                     
-                    
-                }
-                
+//                }
+//                List{
+//                    ForEach(dailyNotes){ note in
+//                        NavigationLink(value: note){
+//                            Text(note.entryNote)
+//                            Text(note.entryDateDisplay) // Display the formatted date
+//                        }
+//                    }
+//                    .onDelete{ indexSet in
+//                        for index in indexSet {
+//                            modelContext.delete(dailyNotes[index])
+//                        }
+//                    }
+//                }
             }
+            
+            .padding(10)
+//            .background(.green)
+            
             .navigationDestination(for: journalDataModel.self) { newView in
                 EditDataView(editNote: newView)
             }
@@ -153,15 +179,11 @@ struct TodayView: View {
             if let newDate = newDate {
                 print("Selected date changed to: \(newDate)")
                 print("updated on Today View")
-
-//                fetchData(for: newDate)
-                
             }
         }
         .toolbar {
             ToolbarItem(placement: .keyboard) {
                     Button("Done") {
-                        noteFocussed = false
                         // Perform any action when "Done" is tapped
                         doneSave()
                     }
@@ -170,18 +192,44 @@ struct TodayView: View {
                 ToolbarItemGroup(placement: .primaryAction) {
                     Button(action: {
                         // Add your action here
+                        toggleFav()
                     }) {
                         Image(systemName: "heart")
                     }
                 }
             }
     }
+    func toggleFav(){
+        print("favorite")
+//        editNote.isFavorite = Toggle()
+        doneSave()
+    }
+//    func loadTextForDate(date: Date?) {
+//      let selectedDate = date ?? Date() // Use current date if date is nil
+//        editNote.entryNote = "This is the text for \(dateFormatter.string(from: selectedDate)) and the stored data is "
+//    }
+    func loadTextForDate(date: Date?) {
+      let selectedDate = date ?? Date() // Use current date if date is nil
+
+      // 1. Filter dailyNotes to find the entry for the selected date
+      guard let selectedEntry = dailyNotes.first(where: { $0.entryDate == selectedDate }) else {
+        // No entry found for the selected date
+//        editNote.entryNote = "This is the text for \(dateFormatter.string(from: selectedDate)) and no stored data found."
+          editNote.entryNote = ""
+        return
+      }
+
+      // 2. Update TextEditor content with retrieved entry data
+//      editNote.entryNote = "This is the text for \(dateFormatter.string(from: selectedDate)) and the stored data is: \n\(selectedEntry.entryNote)"
+        editNote.entryNote = "\(selectedEntry.entryNote)"
+    }
     func doneSave(){
         print("Saving in progress...")
         
         // note object
-        let note = journalDataModel(entryNote: $editNote.entryNote.wrappedValue, entryDate: Date())
+        let note = journalDataModel(entryNote: $editNote.entryNote.wrappedValue, entryDate: selectedDate ?? Date())
             
+        
         // to save it in container
         modelContext.insert(note)
         

@@ -30,6 +30,11 @@ struct MemoriesView: View {
                         }
                     }
                 }
+                .onDelete{ indexSet in
+                    for index in indexSet {
+                        modelContext.delete(dailyNotes[index])
+                    }
+                }
             }
             .navigationDestination(for: journalDataModel.self) { newView in
 //                VStack{
