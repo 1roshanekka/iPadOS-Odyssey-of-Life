@@ -13,7 +13,7 @@ struct Odessey_of_LifeApp: App {
 
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([journalDataModel.self])
-        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: true)
+        let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
         do {
             return try ModelContainer(for: schema, configurations: [modelConfiguration])
         } catch {
