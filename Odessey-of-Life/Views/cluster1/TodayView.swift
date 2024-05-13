@@ -49,9 +49,6 @@ struct TodayView: View {
                         //                List{
                         
                         TextEditor(text: $editNote.entryNote)
-                        //                    .onChange(of: selectedDate) { newDate in
-                        //                        text = dailyNotes.fetchText(for: newDate.rawValue) ?? ""
-                        //                    }
                             .onAppear {
                                 loadTextForDate(date: selectedDate)
                             }
@@ -62,26 +59,27 @@ struct TodayView: View {
 //                                    print("updated on Today View")
 //                                }
                             }
-                            .onChange(of: noteFocussed.wrappedValue) { isFocused in
-                                if !isFocused {
-                                  // Dismiss keyboard on focus loss
-//                                  UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
-                                    print("is the TextEditor out of focus - \(!isFocused)")
-                                    doneSave()
-                                }
-                              }
+//                            .onChange(of: noteFocussed.wrappedValue) { isFocused in
+//                                if !isFocused {
+//                                  // Dismiss keyboard on focus loss
+////                                  UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+//                                    print("is the TextEditor out of focus - \(!isFocused)")
+//                                    doneSave()
+//                                    loadTextForDate(date: selectedDate)
+//                                }
+//                              }
 //                            .background(.red)ss
                             .textFieldStyle(.roundedBorder)
                             .focused(noteFocussed)
                             .cornerRadius(10)
-                            .overlay(alignment: .topLeading, content: {
-                                Text("How is your day going?..")
-                                //                                .foregroundStyle(.white)
-                                    .padding(5)
-                                    .padding(.top, 4)
-                                    .opacity(editNote.entryNote.isEmpty ? 1 : 0)
-                                    .allowsHitTesting(false)
-                            })
+//                            .overlay(alignment: .topLeading, content: {
+//                                Text("How is your day going?..")
+//                                //                                .foregroundStyle(.white)
+//                                    .padding(5)
+//                                    .padding(.top, 4)
+//                                    .opacity(editNote.entryNote.isEmpty ? 1 : 0)
+//                                    .allowsHitTesting(false)
+//                            })
                         
                             .scrollContentBackground(.hidden)
                             .multilineTextAlignment(.leading)
@@ -106,7 +104,6 @@ struct TodayView: View {
                         HStack(alignment: .firstTextBaseline){
                             // if nothing selected, shows the current date
                             Text(selectedDate != nil ? selectedDate.map { dateFormatter.string(from: $0) } ?? "" : dateFormatter.string(from: Date()))
-                            Text("lala")
                         }
                         
                         
@@ -183,7 +180,10 @@ struct TodayView: View {
             }
 //            .padding(10)
 //            .background(.green)
-            
+            .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
+                        // Perform save action when keyboard is hidden
+                        doneSave()
+                    }
             .navigationDestination(for: journalDataModel.self) { newView in
                 EditDataView(editNote: newView)
             }
@@ -208,12 +208,14 @@ struct TodayView: View {
     }
     func toggleFav(){
         print("favorite")
-//        editNote.isFavorite = Toggle()
+        let note = journalDataModel(entryNote: $editNote.entryNote.wrappedValue, entryDate: selectedDate ?? Date())
+        note.isFavorite = true
         doneSave()
     }
 //    func loadTextForDate(date: Date?) {
 //      let selectedDate = date ?? Date() // Use current date if date is nil
 //        editNote.entryNote = "This is the text for \(dateFormatter.string(from: selectedDate)) and the stored data is "
+//        
 //    }
     func loadTextForDate(date: Date?) {
       let selectedDate = date ?? Date() // Use current date if date is nil
@@ -221,23 +223,35 @@ struct TodayView: View {
       // 1. Filter dailyNotes to find the entry for the selected date
       guard let selectedEntry = dailyNotes.first(where: { $0.entryDate == selectedDate }) else {
         // No entry found for the selected date
-//        editNote.entryNote = "This is the text for \(dateFormatter.string(from: selectedDate)) and no stored data found."
-          
+//        editNote.entryNote = "This is a new entry for \(dateFormatter.string(from: selectedDate))"
           editNote.entryNote = ""
         return
       }
 
       // 2. Update TextEditor content with retrieved entry data
-//      editNote.entryNote = "This is the text for \(dateFormatter.string(from: selectedDate)) and the stored data is: \n\(selectedEntry.entryNote)"
-
-        editNote.entryNote = "\(selectedEntry.entryNote)"
+      editNote.entryNote = selectedEntry.entryNote
     }
-    
+
+//    func loadTextForDate(date: Date?) {
+//        let selectedDate = date ?? Date() // Use current date if date is nil
+//
+//        // 1. Filter dailyNotes to find the entry for the selected date
+//        if let selectedEntry = dailyNotes.first(where: { $0.entryDate == selectedDate }) {
+//            // Entry found for the selected date
+//            // Update TextEditor content with retrieved entry data
+//            editNote.entryNote = selectedEntry.entryNote
+//        } else {
+//            // No entry found for the selected date
+//            // Clear the text field
+//            editNote.entryNote = ""
+//        }
+//    }
+
     func doneSave(){
         print("Saving in progress...")
         
         // note object
-        let note = journalDataModel(entryNote: $editNote.entryNote.wrappedValue, entryDate: selectedDate ?? Date())
+        let note = journalDataModel(entryNote: editNote.entryNote, entryDate: selectedDate ?? Date())
             
         do {
             try modelContext.save()
@@ -258,18 +272,14 @@ struct TodayView: View {
          
         */
         
-//        presentationMode.wrappedValue.dismiss()
-        
         // THE DISPLAY PART 
         // Format the date for display
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "dd/MM/yyyy" // Adjust the format as desired
-            let formattedDate = dateFormatter.string(from: note.entryDate)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd/MM/yyyy" // Adjust the format as desired
+        let formattedDate = dateFormatter.string(from: note.entryDate)
 
-            // Add the formatted date to the note
-            note.entryDateDisplay = formattedDate
-
-//            path.append(note)
+        // Add the formatted date to the note
+        note.entryDateDisplay = formattedDate
         
     }
 }

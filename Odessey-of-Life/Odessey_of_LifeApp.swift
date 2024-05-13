@@ -27,11 +27,6 @@ struct Odessey_of_LifeApp: App {
         let container = try! ModelContainer(for: schema, configurations: [])
         return container
     }()
-
-//    func fetchText(for date: String) -> String? {
-//            let predicate = Predicate { $0.date == date }
-//            return container.fetch(TextEditorModel.self, predicate: predicate).first?.text
-//        }
     
     var body: some Scene {
         WindowGroup {

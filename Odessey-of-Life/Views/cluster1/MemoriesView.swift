@@ -12,7 +12,8 @@ struct MemoriesView: View {
     
     @State private var path = [journalDataModel]()
      
-    @Query var dailyNotes: [journalDataModel]
+    // fetching the data
+    @Query(sort: \journalDataModel.entryDate) var dailyNotes: [journalDataModel] = []
     
     var body: some View {
         NavigationStack(path: $path){
@@ -27,6 +28,7 @@ struct MemoriesView: View {
                             Text(note.entryDateDisplay)
                                 .font(.caption)
                                 .foregroundColor(.secondary)
+                            
                         }
                     }
                 }
