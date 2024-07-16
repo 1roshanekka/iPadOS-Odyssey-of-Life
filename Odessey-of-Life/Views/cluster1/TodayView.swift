@@ -37,7 +37,7 @@ struct TodayView: View {
     
     // note that we pass in to the view
     @Bindable var editNote: journalDataModel
-    @State private var text = ""
+//    @State private var text = ""
     
     var noteFocussed: FocusState<Bool>.Binding
 
@@ -54,10 +54,10 @@ struct TodayView: View {
                             }
                             .onChange(of: selectedDate) { newDate in
                                 loadTextForDate(date: newDate)
-//                                if let newDate = selectedDate {
-//                                    print("Selected date changed to: \(newDate)")
-//                                    print("updated on Today View")
-//                                }
+                                if let newDate = selectedDate {
+                                    print("Selected date changed to: \(newDate)")
+                                    print("updated on Today View")
+                                }
                             }
 //                            .onChange(of: noteFocussed.wrappedValue) { isFocused in
 //                                if !isFocused {
@@ -72,15 +72,14 @@ struct TodayView: View {
                             .textFieldStyle(.roundedBorder)
                             .focused(noteFocussed)
                             .cornerRadius(10)
-//                            .overlay(alignment: .topLeading, content: {
-//                                Text("How is your day going?..")
-//                                //                                .foregroundStyle(.white)
-//                                    .padding(5)
-//                                    .padding(.top, 4)
-//                                    .opacity(editNote.entryNote.isEmpty ? 1 : 0)
-//                                    .allowsHitTesting(false)
-//                            })
-                        
+                            .overlay(alignment: .topLeading, content: {
+                                Text("How is your day going?..")
+                                //                                .foregroundStyle(.white)
+                                    .padding(5)
+                                    .padding(.top, 4)
+                                    .opacity(editNote.entryNote.isEmpty ? 1 : 0)
+                                    .allowsHitTesting(false)
+                            })
                             .scrollContentBackground(.hidden)
                             .multilineTextAlignment(.leading)
 //                            .padding(.top, 15)
@@ -89,7 +88,7 @@ struct TodayView: View {
                             .frame(height: 273)
 //                            .background(Color(uiColor: .systemGray5))
                         
-                        ////                        .background(.gray.opacity(0.15))
+
                         //                        .onSubmit {
                         //                            UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
                         //                            print("Content: \($editNote.entryNote)")
@@ -182,7 +181,9 @@ struct TodayView: View {
 //            .background(.green)
             .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification)) { _ in
                         // Perform save action when keyboard is hidden
+                    print("keyboard dismissed --- starting to save")
                         doneSave()
+                    print("saving done")
                     }
             .navigationDestination(for: journalDataModel.self) { newView in
                 EditDataView(editNote: newView)
@@ -225,11 +226,13 @@ struct TodayView: View {
         // No entry found for the selected date
 //        editNote.entryNote = "This is a new entry for \(dateFormatter.string(from: selectedDate))"
           editNote.entryNote = ""
+          print("--no data found--")
         return
       }
 
       // 2. Update TextEditor content with retrieved entry data
       editNote.entryNote = selectedEntry.entryNote
+        print("Found Data!")
     }
 
 //    func loadTextForDate(date: Date?) {
@@ -249,6 +252,12 @@ struct TodayView: View {
 
     func doneSave(){
         print("Saving in progress...")
+        
+        // Check if the note is empty
+            guard !editNote.entryNote.isEmpty else {
+                print("Note is empty. Not saving.")
+                return
+            }
         
         // note object
         let note = journalDataModel(entryNote: editNote.entryNote, entryDate: selectedDate ?? Date())

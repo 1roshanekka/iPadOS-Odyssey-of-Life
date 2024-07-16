@@ -18,10 +18,9 @@ struct MemoriesView: View {
     var body: some View {
         NavigationStack(path: $path){
             
-            //grids of 
+            //grids of new
             List{
                 ForEach(dailyNotes){ note in
-                    
                     NavigationLink(value: note){
                         VStack(alignment: .leading){
                             Text(note.entryNote)

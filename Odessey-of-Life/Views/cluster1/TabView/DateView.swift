@@ -25,7 +25,6 @@ struct DateView: View {
                 .datePickerStyle(.graphical)
                 .onChange(of: dateEntry) { newValue in
                     selectedDate = newValue
-                    print("Selected date from DateView: \(newValue)")
                 }
             }
         }
